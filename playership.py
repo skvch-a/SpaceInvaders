@@ -1,24 +1,19 @@
 import pygame
-from laser import Laser
-from gun import Gun
+from ship import Ship
 
 
-class PlayerShip(pygame.sprite.Sprite):
+class PlayerShip(Ship):
 	def __init__(self, screen_width, screen_height, offset):
-		super().__init__()
+		super().__init__(screen_height, "Assets/Graphics/playership.png")
 		self.offset = offset
 		self.screen_width = screen_width
 		self.screen_height = screen_height
-		self.image = pygame.image.load("Assets/Graphics/playership.png")
-		self.rect = self.image.get_rect(midbottom = ((self.screen_width + self.offset)/2, self.screen_height))
+		self.rect = self.image.get_rect(midbottom = ((self.screen_width + self.offset) / 2, self.screen_height))
 		self.speed = 6
-		self.lasers_group = pygame.sprite.Group()
-		self.gun = Gun(self.lasers_group)
-
 
 	def update(self):
 		self.process_user_input()
-		self.lasers_group.update()
+		self.gun.update()
 
 	def process_user_input(self):
 		keys = pygame.key.get_pressed()
@@ -33,8 +28,5 @@ class PlayerShip(pygame.sprite.Sprite):
 				self.rect.left = self.offset
 
 		if keys[pygame.K_SPACE]:
-			self.gun.shoot(Laser(self.rect.center, 5, self.screen_height))
+			self.shoot()
 
-	def reset(self):
-		self.rect = self.image.get_rect(midbottom=((self.screen_width + self.offset) / 2, self.screen_height))
-		self.lasers_group.empty()

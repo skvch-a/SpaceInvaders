@@ -1,10 +1,11 @@
-import pygame, random
+import pygame
+import random
 from playership import PlayerShip
 from obstacle import Obstacle
 from obstacle import grid
-from alien import Alien
+from alienship import AlienShip
 from laser import Laser
-from alien import MysteryShip
+from mysteryship import MysteryShip
 
 class Game:
 	def __init__(self, screen_width, screen_height, offset):
@@ -29,6 +30,13 @@ class Game:
 		pygame.mixer.music.load("Assets/Audio/music.ogg")
 		pygame.mixer.music.play(-1)
 
+	def update(self):
+		self.playership_group.update()
+		self.move_aliens()
+		self.alien_lasers_group.update()
+		self.mystery_ship_group.update()
+		self.check_for_collisions()
+
 	def create_obstacles(self):
 		obstacle_width = len(grid[0]) * 3
 		gap = (self.screen_width + self.offset - (4 * obstacle_width))/5
@@ -52,7 +60,7 @@ class Game:
 				else:
 					alien_type = 1
 
-				alien = Alien(alien_type, x + self.offset/2, y)
+				alien = AlienShip(alien_type, x + self.offset / 2, y)
 				self.aliens_group.add(alien)
 
 	def move_aliens(self):
@@ -83,9 +91,9 @@ class Game:
 
 	def check_for_collisions(self):
 		#Spaceship
-		if self.playership_group.sprite.lasers_group:
-			for laser_sprite in self.playership_group.sprite.lasers_group:
-				
+		if self.playership_group.sprite.gun.lasers_group:
+			for laser_sprite in self.playership_group.sprite.gun.lasers_group:
+
 				aliens_hit = pygame.sprite.spritecollide(laser_sprite, self.aliens_group, True)
 				if aliens_hit:
 					self.explosion_sound.play()
@@ -127,18 +135,6 @@ class Game:
 
 	def game_over(self):
 		self.run = False
-
-	def reset(self):
-		self.run = True
-		self.lives = 3
-		self.playership_group.sprite.reset()
-		self.aliens_group.empty()
-		self.playership.lasers_group.empty()
-		self.alien_lasers_group.empty()
-		self.create_aliens()
-		self.mystery_ship_group.empty()
-		self.obstacles = self.create_obstacles()
-		self.score = 0
 
 	def check_for_highscore(self):
 		if self.score > self.highscore:
