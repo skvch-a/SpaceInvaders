@@ -37,7 +37,7 @@ class EventHandler:
     def update_game_objects(self):
         if self.game.run:
             self.process_user_input()
-            self.game.player_ship.laser_gun.update()
+            self.game.player_ship.update()
             self.game.move_aliens()
             self.game.alien_lasers_group.update()
             self.game.mystery_ship_group.update()

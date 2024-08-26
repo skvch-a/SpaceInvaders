@@ -38,7 +38,7 @@ class Visualizer:
 
     def draw_game_objects(self):
         self.game.playership_group.draw(self.screen)
-        self.game.player_ship.laser_gun.lasers_group.draw(self.screen)
+        self.game.player_ship.lasers_group.draw(self.screen)
         for obstacle in self.game.obstacles:
             obstacle.blocks_group.draw(self.screen)
         self.game.aliens_group.draw(self.screen)

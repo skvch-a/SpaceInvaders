@@ -5,8 +5,7 @@ from player_ship import PlayerShip
 from obstacle import Obstacle
 from obstacle import grid
 from alien_ship import AlienShip
-from laser import Laser
-from mysteryship import MysteryShip
+from mystery_ship import MysteryShip
 
 class Game:
 	def __init__(self):
@@ -15,9 +14,9 @@ class Game:
 		self.playership_group.add(self.player_ship)
 		self.obstacles = self.create_obstacles()
 		self.aliens_group = pygame.sprite.Group()
+		self.alien_lasers_group = pygame.sprite.Group()
 		self.create_aliens()
 		self.aliens_direction = 1
-		self.alien_lasers_group = pygame.sprite.Group()
 		self.mystery_ship_group = pygame.sprite.GroupSingle()
 		self.lives = LIVES_COUNT
 		self.run = True
@@ -52,7 +51,7 @@ class Game:
 				else:
 					alien_type = 1
 
-				alien = AlienShip(alien_type, x + OFFSET / 2, y)
+				alien = AlienShip(alien_type, x + OFFSET / 2, y, self.alien_lasers_group)
 				self.aliens_group.add(alien)
 
 	def move_aliens(self):
@@ -74,17 +73,15 @@ class Game:
 
 	def alien_shoot_laser(self):
 		if self.aliens_group.sprites():
-			random_alien = random.choice(self.aliens_group.sprites())
-			laser_sprite = Laser(random_alien.rect.center, -6)
-			self.alien_lasers_group.add(laser_sprite)
+			random.choice(self.aliens_group.sprites()).shoot()
 
 	def create_mystery_ship(self):
 		self.mystery_ship_group.add(MysteryShip(SCREEN_WIDTH, OFFSET))
 
 	def check_for_collisions(self):
 		#Spaceship
-		if self.player_ship.laser_gun.lasers_group:
-			for laser_sprite in self.player_ship.laser_gun.lasers_group:
+		if self.player_ship.lasers_group:
+			for laser_sprite in self.player_ship.lasers_group:
 
 				aliens_hit = pygame.sprite.spritecollide(laser_sprite, self.aliens_group, True)
 				if aliens_hit:
