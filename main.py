@@ -10,7 +10,7 @@ OFFSET = 50
 GREY = (29, 29, 27)
 YELLOW = (243, 216, 63)
 
-font = pygame.font.Font("Font/monogram.ttf", 40)
+font = pygame.font.Font("Assets/Font/monogram.ttf", 40)
 level_surface = font.render("LEVEL 01", False, YELLOW)
 game_over_surface = font.render("GAME OVER", False, YELLOW)
 score_text_surface = font.render("SCORE", False, YELLOW)
@@ -48,7 +48,7 @@ while True:
 
     #Updating
     if game.run:
-        game.spaceship_group.update()
+        game.playership_group.update()
         game.move_aliens()
         game.alien_lasers_group.update()
         game.mystery_ship_group.update()
@@ -68,7 +68,7 @@ while True:
 
     x = 50
     for life in range(game.lives):
-        screen.blit(game.spaceship_group.sprite.image, (x, 745))
+        screen.blit(game.playership_group.sprite.image, (x, 745))
         x += 50
 
     screen.blit(score_text_surface, (50, 15, 50, 50))
@@ -80,8 +80,8 @@ while True:
     highscore_surface = font.render(formatted_highscore, False, YELLOW)
     screen.blit(highscore_surface, (625, 40, 50, 50))
 
-    game.spaceship_group.draw(screen)
-    game.spaceship_group.sprite.lasers_group.draw(screen)
+    game.playership_group.draw(screen)
+    game.playership_group.sprite.lasers_group.draw(screen)
     for obstacle in game.obstacles:
         obstacle.blocks_group.draw(screen)
     game.aliens_group.draw(screen)
