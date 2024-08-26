@@ -1,27 +1,25 @@
 import pygame
 import random
-from playership import PlayerShip
+from constants import *
+from player_ship import PlayerShip
 from obstacle import Obstacle
 from obstacle import grid
-from alienship import AlienShip
+from alien_ship import AlienShip
 from laser import Laser
 from mysteryship import MysteryShip
 
 class Game:
-	def __init__(self, screen_width, screen_height, offset):
-		self.screen_width = screen_width
-		self.screen_height = screen_height
-		self.offset = offset
+	def __init__(self):
 		self.playership_group = pygame.sprite.GroupSingle()
-		self.playership = PlayerShip(self.screen_width, self.screen_height, self.offset)
-		self.playership_group.add(self.playership)
+		self.player_ship = PlayerShip()
+		self.playership_group.add(self.player_ship)
 		self.obstacles = self.create_obstacles()
 		self.aliens_group = pygame.sprite.Group()
 		self.create_aliens()
 		self.aliens_direction = 1
 		self.alien_lasers_group = pygame.sprite.Group()
 		self.mystery_ship_group = pygame.sprite.GroupSingle()
-		self.lives = 3
+		self.lives = LIVES_COUNT
 		self.run = True
 		self.score = 0
 		self.highscore = 0
@@ -30,20 +28,14 @@ class Game:
 		pygame.mixer.music.load("Assets/Audio/music.ogg")
 		pygame.mixer.music.play(-1)
 
-	def update(self):
-		self.playership_group.update()
-		self.move_aliens()
-		self.alien_lasers_group.update()
-		self.mystery_ship_group.update()
-		self.check_for_collisions()
 
 	def create_obstacles(self):
 		obstacle_width = len(grid[0]) * 3
-		gap = (self.screen_width + self.offset - (4 * obstacle_width))/5
+		gap = (SCREEN_WIDTH + OFFSET - (4 * obstacle_width))/5
 		obstacles = []
 		for i in range(4):
 			offset_x = (i + 1) * gap + i * obstacle_width
-			obstacle = Obstacle(offset_x, self.screen_height - 100)
+			obstacle = Obstacle(offset_x, SCREEN_HEIGHT - 100)
 			obstacles.append(obstacle)
 		return obstacles
 
@@ -60,7 +52,7 @@ class Game:
 				else:
 					alien_type = 1
 
-				alien = AlienShip(alien_type, x + self.offset / 2, y)
+				alien = AlienShip(alien_type, x + OFFSET / 2, y)
 				self.aliens_group.add(alien)
 
 	def move_aliens(self):
@@ -68,10 +60,10 @@ class Game:
 
 		alien_sprites = self.aliens_group.sprites()
 		for alien in alien_sprites:
-			if alien.rect.right >= self.screen_width + self.offset/2:
+			if alien.rect.right >= SCREEN_WIDTH + OFFSET / 2:
 				self.aliens_direction = -1
 				self.alien_move_down(2)
-			elif alien.rect.left <= self.offset/2:
+			elif alien.rect.left <= OFFSET / 2:
 				self.aliens_direction = 1
 				self.alien_move_down(2)
 
@@ -83,16 +75,16 @@ class Game:
 	def alien_shoot_laser(self):
 		if self.aliens_group.sprites():
 			random_alien = random.choice(self.aliens_group.sprites())
-			laser_sprite = Laser(random_alien.rect.center, -6, self.screen_height)
+			laser_sprite = Laser(random_alien.rect.center, -6)
 			self.alien_lasers_group.add(laser_sprite)
 
 	def create_mystery_ship(self):
-		self.mystery_ship_group.add(MysteryShip(self.screen_width, self.offset))
+		self.mystery_ship_group.add(MysteryShip(SCREEN_WIDTH, OFFSET))
 
 	def check_for_collisions(self):
 		#Spaceship
-		if self.playership_group.sprite.gun.lasers_group:
-			for laser_sprite in self.playership_group.sprite.gun.lasers_group:
+		if self.player_ship.laser_gun.lasers_group:
+			for laser_sprite in self.player_ship.laser_gun.lasers_group:
 
 				aliens_hit = pygame.sprite.spritecollide(laser_sprite, self.aliens_group, True)
 				if aliens_hit:

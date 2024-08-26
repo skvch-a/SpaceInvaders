@@ -1,6 +1,11 @@
+TITLE = "Python Space Invaders"
+
 SCREEN_WIDTH = 750
 SCREEN_HEIGHT = 700
 OFFSET = 50
+LIVES_COUNT = 3
+
+FPS = 60
 
 FONT_SIZE = 40
 GREY = (29, 29, 27)

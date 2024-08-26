@@ -2,8 +2,7 @@ import pygame
 from laser import Laser
 
 class LaserGun:
-    def __init__(self, screen_height, shoot_speed):
-        self.screen_height = screen_height
+    def __init__(self, shoot_speed):
         self.shoot_speed = shoot_speed
         self.lasers_group = pygame.sprite.Group()
         self.shoot_delay = 300
@@ -16,6 +15,6 @@ class LaserGun:
     def shoot(self, position):
         current_time = pygame.time.get_ticks()
         if current_time - self.last_shoot_time >= self.shoot_delay:
-            self.lasers_group.add(Laser(position, self.shoot_speed, self.screen_height))
+            self.lasers_group.add(Laser(position, self.shoot_speed))
             self.shoot_sound.play()
             self.last_shoot_time = pygame.time.get_ticks()
