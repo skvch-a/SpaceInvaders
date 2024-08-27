@@ -5,7 +5,7 @@ from alien_fleet import AlienFleet
 from constants import *
 from player_ship import PlayerShip
 from obstacle import Obstacle
-from obstacle import grid
+from obstacle import OBSTACLE_GRID
 from mystery_ship import MysteryShip
 
 
@@ -29,7 +29,7 @@ class Game:
 
 
     def create_obstacles(self):
-        obstacle_width = len(grid[0]) * 3
+        obstacle_width = len(OBSTACLE_GRID[0]) * 3
         gap = (SCREEN_WIDTH + OFFSET - (4 * obstacle_width)) / 5
         obstacles = []
         for i in range(4):

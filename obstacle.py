@@ -1,36 +1,13 @@
 import pygame
-from constants import GREEN
+from constants import OBSTACLE_GRID
+from block import Block
 
-class Block(pygame.sprite.Sprite):
-	def __init__(self, x, y):
-		super().__init__()
-		self.image = pygame.Surface((3,3))
-		self.image.fill(GREEN)
-		self.rect = self.image.get_rect(topleft = (x,y))
-
-grid = [
-[0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0],
-[0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0],
-[0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0],
-[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-[1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1],
-[1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1],
-[1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1]]
 
 class Obstacle:
 	def __init__(self, x, y):
 		self.blocks_group = pygame.sprite.Group()
-		for row in range(len(grid)):
-			for column in range(len(grid[0])):
-				if grid[row][column] == 1:
-					pos_x = x + column * 3
-					pos_y = y + row * 3
-					block = Block(pos_x, pos_y)
-					self.blocks_group.add(block)
+		for row in range(len(OBSTACLE_GRID)):
+			for column in range(len(OBSTACLE_GRID[0])):
+				if OBSTACLE_GRID[row][column] == 1:
+					self.blocks_group.add(Block(x + column * 3, y + row * 3))
 
