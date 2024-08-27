@@ -1,8 +1,6 @@
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT, OFFSET
 from laser import Laser
 import pygame
-import pygame.display
-
 
 class PlayerShip(pygame.sprite.Sprite):
     def __init__(self):

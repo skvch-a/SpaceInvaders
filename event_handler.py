@@ -2,8 +2,6 @@ import pygame
 import sys
 from random import randint
 
-from mystery_ship import MysteryShip
-
 
 class EventHandler:
     def __init__(self, game):

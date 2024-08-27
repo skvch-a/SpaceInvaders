@@ -9,4 +9,4 @@ FPS = 60
 
 FONT_SIZE = 40
 GREY = (29, 29, 27)
-YELLOW = (243, 216, 63)
+GREEN = (0, 204, 0)
