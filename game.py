@@ -1,140 +1,101 @@
 import pygame
-import random
+
+from alien_fleet import AlienFleet
 from constants import *
 from player_ship import PlayerShip
 from obstacle import Obstacle
 from obstacle import grid
-from alien_ship import AlienShip
 from mystery_ship import MysteryShip
 
+
 class Game:
-	def __init__(self):
-		self.playership_group = pygame.sprite.GroupSingle()
-		self.player_ship = PlayerShip()
-		self.playership_group.add(self.player_ship)
-		self.obstacles = self.create_obstacles()
-		self.aliens_group = pygame.sprite.Group()
-		self.alien_lasers_group = pygame.sprite.Group()
-		self.create_aliens()
-		self.aliens_direction = 1
-		self.mystery_ship_group = pygame.sprite.GroupSingle()
-		self.lives = LIVES_COUNT
-		self.run = True
-		self.score = 0
-		self.highscore = 0
-		self.explosion_sound = pygame.mixer.Sound("Assets/Audio/explosion.ogg")
-		self.load_highscore()
-		pygame.mixer.music.load("Assets/Audio/music.ogg")
-		pygame.mixer.music.play(-1)
+    def __init__(self):
+        self.player_ship = PlayerShip()
+        self.obstacles = self.create_obstacles()
+        self.alien_fleet = AlienFleet()
+        self.mystery_ship = MysteryShip()
+        self.mystery_ship_is_alive = False
+        self.lives = LIVES_COUNT
+        self.run = True
+        self.score = 0
+        self.highscore = 0
+        self.explosion_sound = pygame.mixer.Sound("Assets/Audio/explosion.ogg")
+        self.load_highscore()
+        pygame.mixer.music.load("Assets/Audio/music.ogg")
+        pygame.mixer.music.play(-1)
 
+    def create_obstacles(self):
+        obstacle_width = len(grid[0]) * 3
+        gap = (SCREEN_WIDTH + OFFSET - (4 * obstacle_width)) / 5
+        obstacles = []
+        for i in range(4):
+            offset_x = (i + 1) * gap + i * obstacle_width
+            obstacle = Obstacle(offset_x, SCREEN_HEIGHT - 100)
+            obstacles.append(obstacle)
+        return obstacles
 
-	def create_obstacles(self):
-		obstacle_width = len(grid[0]) * 3
-		gap = (SCREEN_WIDTH + OFFSET - (4 * obstacle_width))/5
-		obstacles = []
-		for i in range(4):
-			offset_x = (i + 1) * gap + i * obstacle_width
-			obstacle = Obstacle(offset_x, SCREEN_HEIGHT - 100)
-			obstacles.append(obstacle)
-		return obstacles
+    def create_mystery_ship(self):
+        self.mystery_ship.add(MysteryShip())
 
-	def create_aliens(self):
-		for row in range(5):
-			for column in range(11):
-				x = 75 + column * 55
-				y = 110 + row * 55
+    def check_for_collisions(self):
+        # Spaceship
+        if self.player_ship.lasers_group:
+            for laser_sprite in self.player_ship.lasers_group:
 
-				if row == 0:
-					alien_type = 3
-				elif row in (1,2):
-					alien_type = 2
-				else:
-					alien_type = 1
+                aliens_hit = pygame.sprite.spritecollide(laser_sprite, self.alien_fleet, True)
+                if aliens_hit:
+                    self.explosion_sound.play()
+                    for alien in aliens_hit:
+                        self.score += alien.type * 100
+                        self.check_for_highscore()
+                        laser_sprite.kill()
 
-				alien = AlienShip(alien_type, x + OFFSET / 2, y, self.alien_lasers_group)
-				self.aliens_group.add(alien)
+                if self.mystery_ship_is_alive and pygame.sprite.collide_rect(laser_sprite, self.mystery_ship):
+                    self.score += 500
+                    self.mystery_ship.kill()
+                    self.mystery_ship_is_alive = True
+                    self.explosion_sound.play()
+                    self.check_for_highscore()
+                    laser_sprite.kill()
 
-	def move_aliens(self):
-		self.aliens_group.update(self.aliens_direction)
+                for obstacle in self.obstacles:
+                    if pygame.sprite.spritecollide(laser_sprite, obstacle.blocks_group, True):
+                        laser_sprite.kill()
 
-		alien_sprites = self.aliens_group.sprites()
-		for alien in alien_sprites:
-			if alien.rect.right >= SCREEN_WIDTH + OFFSET / 2:
-				self.aliens_direction = -1
-				self.alien_move_down(2)
-			elif alien.rect.left <= OFFSET / 2:
-				self.aliens_direction = 1
-				self.alien_move_down(2)
+        # Alien Lasers
+        if self.alien_fleet.lasers_group:
+            for laser_sprite in self.alien_fleet.lasers_group:
+                if pygame.sprite.collide_rect(laser_sprite, self.player_ship):
+                    laser_sprite.kill()
+                    self.lives -= 1
+                    if self.lives == 0:
+                        self.game_over()
 
-	def alien_move_down(self, distance):
-		if self.aliens_group:
-			for alien in self.aliens_group.sprites():
-				alien.rect.y += distance
+                for obstacle in self.obstacles:
+                    if pygame.sprite.spritecollide(laser_sprite, obstacle.blocks_group, True):
+                        laser_sprite.kill()
 
-	def alien_shoot_laser(self):
-		if self.aliens_group.sprites():
-			random.choice(self.aliens_group.sprites()).shoot()
+        if self.alien_fleet:
+            for alien in self.alien_fleet:
+                for obstacle in self.obstacles:
+                    pygame.sprite.spritecollide(alien, obstacle.blocks_group, True)
 
-	def create_mystery_ship(self):
-		self.mystery_ship_group.add(MysteryShip(SCREEN_WIDTH, OFFSET))
+                if pygame.sprite.collide_rect(alien, self.player_ship):
+                    self.game_over()
 
-	def check_for_collisions(self):
-		#Spaceship
-		if self.player_ship.lasers_group:
-			for laser_sprite in self.player_ship.lasers_group:
+    def game_over(self):
+        self.run = False
 
-				aliens_hit = pygame.sprite.spritecollide(laser_sprite, self.aliens_group, True)
-				if aliens_hit:
-					self.explosion_sound.play()
-					for alien in aliens_hit:
-						self.score += alien.type * 100
-						self.check_for_highscore()
-						laser_sprite.kill()
+    def check_for_highscore(self):
+        if self.score > self.highscore:
+            self.highscore = self.score
 
-				if pygame.sprite.spritecollide(laser_sprite, self.mystery_ship_group, True):
-					self.score += 500
-					self.explosion_sound.play()
-					self.check_for_highscore()
-					laser_sprite.kill()
+            with open("highscore.txt", "w") as file:
+                file.write(str(self.highscore))
 
-				for obstacle in self.obstacles:
-					if pygame.sprite.spritecollide(laser_sprite, obstacle.blocks_group, True):
-						laser_sprite.kill()
-
-		#Alien Lasers
-		if self.alien_lasers_group:
-			for laser_sprite in self.alien_lasers_group:
-				if pygame.sprite.spritecollide(laser_sprite, self.playership_group, False):
-					laser_sprite.kill()
-					self.lives -= 1
-					if self.lives == 0:
-						self.game_over()
-
-				for obstacle in self.obstacles:
-					if pygame.sprite.spritecollide(laser_sprite, obstacle.blocks_group, True):
-						laser_sprite.kill()
-
-		if self.aliens_group:
-			for alien in self.aliens_group:
-				for obstacle in self.obstacles:
-					pygame.sprite.spritecollide(alien, obstacle.blocks_group, True)
-
-				if pygame.sprite.spritecollide(alien, self.playership_group, False):
-					self.game_over()
-
-	def game_over(self):
-		self.run = False
-
-	def check_for_highscore(self):
-		if self.score > self.highscore:
-			self.highscore = self.score
-
-			with open("highscore.txt", "w") as file:
-				file.write(str(self.highscore))
-
-	def load_highscore(self):
-		try:
-			with open("highscore.txt", "r") as file:
-				self.highscore = int(file.read())
-		except FileNotFoundError:
-			self.highscore = 0
+    def load_highscore(self):
+        try:
+            with open("highscore.txt", "r") as file:
+                self.highscore = int(file.read())
+        except FileNotFoundError:
+            self.highscore = 0

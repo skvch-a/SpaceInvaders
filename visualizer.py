@@ -24,7 +24,7 @@ class Visualizer:
 
         x = 50
         for life in range(self.game.lives):
-            self.screen.blit(self.game.playership_group.sprite.image, (x, 745))
+            self.screen.blit(self.game.player_ship.image, (x, 745))
             x += 50
 
         self.screen.blit(score_text_surface, (50, 15, 50, 50))
@@ -37,13 +37,13 @@ class Visualizer:
         self.screen.blit(highscore_surface, (625, 40, 50, 50))
 
     def draw_game_objects(self):
-        self.game.playership_group.draw(self.screen)
+        self.screen.blit(self.game.player_ship.image, self.game.player_ship.rect)
         self.game.player_ship.lasers_group.draw(self.screen)
         for obstacle in self.game.obstacles:
             obstacle.blocks_group.draw(self.screen)
-        self.game.aliens_group.draw(self.screen)
-        self.game.alien_lasers_group.draw(self.screen)
-        self.game.mystery_ship_group.draw(self.screen)
+        self.game.alien_fleet.draw(self.screen)
+        self.game.alien_fleet.lasers_group.draw(self.screen)
+        self.screen.blit(self.game.mystery_ship.image, self.game.mystery_ship.rect)
 
     def visualize(self):
         self.screen.fill(GREY)

@@ -2,6 +2,9 @@ import pygame
 import sys
 from random import randint
 
+from mystery_ship import MysteryShip
+
+
 class EventHandler:
     def __init__(self, game):
         self.game = game
@@ -17,10 +20,11 @@ class EventHandler:
                 sys.exit()
 
             if event.type == self.shoot_laser_event and self.game.run:
-                self.game.alien_shoot_laser()
+                self.game.alien_fleet.shoot()
 
             if event.type == self.mystery_ship_event and self.game.run:
-                self.game.create_mystery_ship()
+                self.game.mystery_ship = MysteryShip()
+                self.game.mystery_ship_is_alive = True
                 pygame.time.set_timer(self.mystery_ship_event, randint(4000, 8000))
 
         self.update_game_objects()
@@ -37,8 +41,8 @@ class EventHandler:
     def update_game_objects(self):
         if self.game.run:
             self.process_user_input()
-            self.game.player_ship.update()
-            self.game.move_aliens()
-            self.game.alien_lasers_group.update()
-            self.game.mystery_ship_group.update()
+            self.game.alien_fleet.move()
+            self.game.alien_fleet.lasers_group.update()
+            self.game.player_ship.lasers_group.update()
+            self.game.mystery_ship.update()
             self.game.check_for_collisions()
