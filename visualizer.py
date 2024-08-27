@@ -43,7 +43,7 @@ class Visualizer:
             obstacle.blocks_group.draw(self.screen)
         self.game.alien_fleet.draw(self.screen)
         self.game.alien_fleet.lasers_group.draw(self.screen)
-        self.screen.blit(self.game.mystery_ship.image, self.game.mystery_ship.rect)
+        self.game.mystery_ship_group.draw(self.screen)
 
     def visualize(self):
         self.screen.fill(GREY)

@@ -23,9 +23,8 @@ class EventHandler:
                 self.game.alien_fleet.shoot()
 
             if event.type == self.mystery_ship_event and self.game.run:
-                self.game.mystery_ship = MysteryShip()
-                self.game.mystery_ship_is_alive = True
-                pygame.time.set_timer(self.mystery_ship_event, randint(4000, 8000))
+                self.game.create_mystery_ship()
+
 
         self.update_game_objects()
 
@@ -44,5 +43,5 @@ class EventHandler:
             self.game.alien_fleet.move()
             self.game.alien_fleet.lasers_group.update()
             self.game.player_ship.lasers_group.update()
-            self.game.mystery_ship.update()
+            self.game.mystery_ship_group.update()
             self.game.check_for_collisions()

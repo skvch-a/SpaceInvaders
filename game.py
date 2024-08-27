@@ -1,4 +1,5 @@
 import pygame
+from pygame.sprite import GroupSingle
 
 from alien_fleet import AlienFleet
 from constants import *
@@ -13,8 +14,7 @@ class Game:
         self.player_ship = PlayerShip()
         self.obstacles = self.create_obstacles()
         self.alien_fleet = AlienFleet()
-        self.mystery_ship = MysteryShip()
-        self.mystery_ship_is_alive = False
+        self.mystery_ship_group = GroupSingle()
         self.lives = LIVES_COUNT
         self.run = True
         self.score = 0
@@ -23,6 +23,10 @@ class Game:
         self.load_highscore()
         pygame.mixer.music.load("Assets/Audio/music.ogg")
         pygame.mixer.music.play(-1)
+
+    def create_mystery_ship(self):
+        self.mystery_ship_group.add(MysteryShip())
+
 
     def create_obstacles(self):
         obstacle_width = len(grid[0]) * 3
@@ -33,9 +37,6 @@ class Game:
             obstacle = Obstacle(offset_x, SCREEN_HEIGHT - 100)
             obstacles.append(obstacle)
         return obstacles
-
-    def create_mystery_ship(self):
-        self.mystery_ship.add(MysteryShip())
 
     def check_for_collisions(self):
         # Spaceship
@@ -50,10 +51,8 @@ class Game:
                         self.check_for_highscore()
                         laser_sprite.kill()
 
-                if self.mystery_ship_is_alive and pygame.sprite.collide_rect(laser_sprite, self.mystery_ship):
+                if pygame.sprite.spritecollide(laser_sprite, self.mystery_ship_group, True):
                     self.score += 500
-                    self.mystery_ship.kill()
-                    self.mystery_ship_is_alive = True
                     self.explosion_sound.play()
                     self.check_for_highscore()
                     laser_sprite.kill()
