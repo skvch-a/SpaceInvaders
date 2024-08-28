@@ -43,8 +43,4 @@ class EventHandler:
 
     def update_game_objects(self):
         self.handle_player_controls()
-        self.game.alien_fleet.move()
-        self.game.alien_fleet.lasers_group.update()
-        self.game.player_ship.lasers_group.update()
-        self.game.mystery_ship_group.update()
-        self.game.check_for_collisions()
+        self.game.update()

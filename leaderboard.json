@@ -1,5 +1,14 @@
 [
-    {"name": "Player1", "score": 5000},
-    {"name": "Player2", "score": 4000},
-    {"name": "Player3", "score": 3000}
+    {
+        "name": "You",
+        "score": 10900
+    },
+    {
+        "name": "You",
+        "score": 10600
+    },
+    {
+        "name": "You",
+        "score": 10500
+    }
 ]

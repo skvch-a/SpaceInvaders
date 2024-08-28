@@ -1,5 +1,6 @@
 import pygame
-from constants import *
+
+from constants import TITLE, FPS
 from event_handler import EventHandler
 from renderer import Renderer
 from game import Game
