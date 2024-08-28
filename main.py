@@ -1,7 +1,7 @@
 import pygame
 from constants import *
 from event_handler import EventHandler
-from game_renderer import GameRenderer
+from renderer import Renderer
 from game import Game
 from menu import Menu
 
@@ -12,7 +12,7 @@ if __name__ == '__main__':
     clock = pygame.time.Clock()
     game = Game()
     menu = Menu()
-    renderer = GameRenderer(game, menu)
+    renderer = Renderer(game, menu)
     event_handler = EventHandler(game, menu)
 
     while True:

@@ -1,7 +1,7 @@
 import pygame
 from constants import *
 
-class GameRenderer:
+class Renderer:
     def __init__(self, game, menu):
         self.game = game
         self.menu = menu

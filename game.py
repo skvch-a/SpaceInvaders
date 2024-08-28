@@ -11,26 +11,36 @@ from mystery_ship import MysteryShip
 
 class Game:
     def __init__(self):
+        self.run = False
+        self.player_ship = None
+        self.obstacles = None
+        self.alien_fleet = None
+        self.mystery_ship_group = None
+        self.lives = None
+        self.score = None
+        self.highscore = None
+        self.explosion_sound = None
+
+    def start(self):
+        self.run = True
         self.player_ship = PlayerShip()
         self.obstacles = self.create_obstacles()
         self.alien_fleet = AlienFleet()
         self.mystery_ship_group = GroupSingle()
         self.lives = LIVES_COUNT
-        self.run = False
         self.score = 0
         self.highscore = 0
         self.explosion_sound = pygame.mixer.Sound("Assets/Audio/explosion.ogg")
         self.load_highscore()
-
-
-    def start(self):
-        self.run = True
         pygame.mixer.music.load("Assets/Audio/music.ogg")
         pygame.mixer.music.play(-1)
 
+    def stop(self):
+        self.run = False
+        pygame.mixer.music.stop()
+
     def create_mystery_ship(self):
         self.mystery_ship_group.add(MysteryShip())
-
 
     def create_obstacles(self):
         obstacle_width = len(OBSTACLE_GRID[0]) * 3
