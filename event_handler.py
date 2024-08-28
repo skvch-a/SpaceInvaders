@@ -28,6 +28,7 @@ class EventHandler:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.menu.play_button_rect.collidepoint(event.pos):
                         self.game.start()
+
         if self.game.run:
             self.update_game_objects()
 
