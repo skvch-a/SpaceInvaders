@@ -1,5 +1,5 @@
 from pygame.font import Font
-from constants import *
+from constants import SCREEN_WIDTH, OFFSET
 from json import load, dump
 
 
@@ -43,5 +43,5 @@ def draw_leaderboard(screen):
         record_text = f"{index_text} {name_text} {score_text}"
 
         text_surface = font.render(record_text, True, (255, 255, 255))
-        screen.blit(text_surface, ((SCREEN_WIDTH - text_surface.get_width() + OFFSET)/2, pos_y))
+        screen.blit(text_surface, ((SCREEN_WIDTH - text_surface.get_width() + OFFSET) / 2, pos_y))
         pos_y += 40

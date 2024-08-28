@@ -5,7 +5,7 @@ from alien_fleet import AlienFleet
 from leaderboard import update_leaderboard, get_max_score
 from player_ship import PlayerShip
 from mystery_ship import MysteryShip
-from obstacle import Obstacle
+from shelter import Shelter
 
 
 class Game:
@@ -26,14 +26,14 @@ class Game:
     def get_lives(self):
         return self._lives
 
-    def get_player_ship_image(self):
-        return self._player_ship.get_image()
-
-    def get_player_ship_rect(self):
-        return self._player_ship.get_rect()
-
     def get_score(self):
         return self._score
+
+    def get_player_ship(self):
+        return self._player_ship
+
+    def alien_fleet_shoot(self):
+        self._alien_fleet.shoot()
 
     def draw_player_ship_and_lasers(self, screen):
         self._player_ship.draw_ship_and_lasers(screen)
@@ -47,7 +47,7 @@ class Game:
     def start(self):
         self._run = True
         self._player_ship = PlayerShip()
-        self._obstacles = self.create_obstacles()
+        self._obstacles = self.create_shelters()
         self._alien_fleet = AlienFleet()
         self._mystery_ship_group = pygame.sprite.GroupSingle()
         self._lives = LIVES_COUNT
@@ -61,7 +61,7 @@ class Game:
         self._run = False
         pygame.mixer.music.stop()
 
-    def draw_obstacles(self, screen):
+    def draw_shelters(self, screen):
         for obstacle in self._obstacles:
             obstacle.blocks_group.draw(screen)
 
@@ -83,7 +83,7 @@ class Game:
                 if aliens_hit:
                     self._explosion_sound.play()
                     for alien in aliens_hit:
-                        self._score += alien.type * BASIC_ALIEN_SCORE
+                        self._score += alien.get_type() * BASIC_ALIEN_SCORE
                         update_leaderboard(self._score)
                         laser_sprite.kill()
 
@@ -122,13 +122,13 @@ class Game:
                     self.stop()
 
     @staticmethod
-    def create_obstacles():
+    def create_shelters():
         obstacle_width = len(OBSTACLE_GRID[0]) * 3
         gap = (SCREEN_WIDTH + OFFSET - (4 * obstacle_width)) / 5
         obstacles = []
         for i in range(4):
             pos_x = (i + 1) * gap + i * obstacle_width
-            obstacle = Obstacle(pos_x, SCREEN_HEIGHT - 100)
+            obstacle = Shelter(pos_x, SCREEN_HEIGHT - 100)
             obstacles.append(obstacle)
         return obstacles
 
