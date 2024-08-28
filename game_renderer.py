@@ -1,9 +1,10 @@
 import pygame
 from constants import *
 
-class Visualizer:
-    def __init__(self, game):
+class GameRenderer:
+    def __init__(self, game, menu):
         self.game = game
+        self.menu = menu
         self.screen = pygame.display.set_mode((SCREEN_WIDTH + OFFSET, SCREEN_HEIGHT + OFFSET * 2))
 
     def draw_frame(self):
@@ -45,7 +46,17 @@ class Visualizer:
         self.game.alien_fleet.lasers_group.draw(self.screen)
         self.game.mystery_ship_group.draw(self.screen)
 
-    def visualize(self):
+    def render(self):
+        if self.game.run:
+            self.render_game()
+        else:
+            self.render_menu()
+
+    def render_menu(self):
+        self.screen.fill(GREY)
+        self.menu.draw(self.screen)
+
+    def render_game(self):
         self.screen.fill(GREY)
         self.draw_frame()
         self.draw_text()

@@ -16,11 +16,15 @@ class Game:
         self.alien_fleet = AlienFleet()
         self.mystery_ship_group = GroupSingle()
         self.lives = LIVES_COUNT
-        self.run = True
+        self.run = False
         self.score = 0
         self.highscore = 0
         self.explosion_sound = pygame.mixer.Sound("Assets/Audio/explosion.ogg")
         self.load_highscore()
+
+
+    def start(self):
+        self.run = True
         pygame.mixer.music.load("Assets/Audio/music.ogg")
         pygame.mixer.music.play(-1)
 

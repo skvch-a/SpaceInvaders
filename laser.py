@@ -1,15 +1,16 @@
 import pygame
-from constants import SCREEN_HEIGHT
+from constants import SCREEN_HEIGHT, GREEN, LASER_WIDTH, LASER_HEIGHT
+
 
 class Laser(pygame.sprite.Sprite):
-	def __init__(self, position, speed):
-		super().__init__()
-		self.image = pygame.Surface((4,15))
-		self.image.fill((243, 216, 63))
-		self.rect = self.image.get_rect(center = position)
-		self.speed = speed
+    def __init__(self, position, speed):
+        super().__init__()
+        self.image = pygame.Surface((LASER_WIDTH, LASER_HEIGHT))
+        self.image.fill(GREEN)
+        self.rect = self.image.get_rect(center=position)
+        self.speed = speed
 
-	def update(self):
-		self.rect.y -= self.speed
-		if self.rect.y > SCREEN_HEIGHT + 15 or self.rect.y < 0:
-			self.kill()
+    def update(self):
+        self.rect.y -= self.speed
+        if self.rect.y > SCREEN_HEIGHT + 15 or self.rect.y < 0:
+            self.kill()

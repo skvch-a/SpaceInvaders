@@ -1,9 +1,9 @@
 import pygame
 from constants import *
 from event_handler import EventHandler
-from visualizer import Visualizer
+from game_renderer import GameRenderer
 from game import Game
-
+from menu import Menu
 
 if __name__ == '__main__':
     pygame.init()
@@ -11,11 +11,12 @@ if __name__ == '__main__':
 
     clock = pygame.time.Clock()
     game = Game()
-    visualizer = Visualizer(game)
-    event_handler = EventHandler(game)
+    menu = Menu()
+    renderer = GameRenderer(game, menu)
+    event_handler = EventHandler(game, menu)
 
     while True:
         event_handler.handle_events()
-        visualizer.visualize()
+        renderer.render()
         pygame.display.update()
         clock.tick(FPS)

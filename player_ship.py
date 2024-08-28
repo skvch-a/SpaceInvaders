@@ -5,7 +5,7 @@ import pygame
 class PlayerShip(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
-        self.image = pygame.image.load('Assets/Graphics/player_ship.png')
+        self.image = pygame.image.load('Assets/Graphics/GameObjects/player_ship.png')
         self.rect = self.image.get_rect(midbottom=((SCREEN_WIDTH + OFFSET) / 2, SCREEN_HEIGHT))
         self.speed = 6
         self.shoot_delay = 300
