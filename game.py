@@ -37,6 +37,10 @@ class Game:
         self.run = False
         pygame.mixer.music.stop()
 
+    def draw_obstacles(self, screen):
+        for obstacle in self.obstacles:
+            obstacle.blocks_group.draw(screen)
+
     def update(self):
         self.alien_fleet.move()
         self.alien_fleet.lasers_group.update()
@@ -99,8 +103,8 @@ class Game:
         gap = (SCREEN_WIDTH + OFFSET - (4 * obstacle_width)) / 5
         obstacles = []
         for i in range(4):
-            offset_x = (i + 1) * gap + i * obstacle_width
-            obstacle = Obstacle(offset_x, SCREEN_HEIGHT - 100)
+            pos_x = (i + 1) * gap + i * obstacle_width
+            obstacle = Obstacle(pos_x, SCREEN_HEIGHT - 100)
             obstacles.append(obstacle)
         return obstacles
 

@@ -40,8 +40,7 @@ class Renderer:
     def draw_game_objects(self):
         self.screen.blit(self.game.player_ship.image, self.game.player_ship.rect)
         self.game.player_ship.lasers_group.draw(self.screen)
-        for obstacle in self.game.obstacles:
-            obstacle.blocks_group.draw(self.screen)
+        self.game.draw_obstacles(self.screen)
         self.game.alien_fleet.draw(self.screen)
         self.game.alien_fleet.lasers_group.draw(self.screen)
         self.game.mystery_ship_group.draw(self.screen)
@@ -53,7 +52,6 @@ class Renderer:
             self.render_menu()
 
     def render_menu(self):
-        self.screen.fill(GREY)
         self.menu.draw(self.screen)
 
     def render_game(self):
