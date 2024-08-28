@@ -1,5 +1,7 @@
 import pygame
 from constants import *
+from leaderboard import get_max_score
+
 
 class Renderer:
     def __init__(self, game, menu):
@@ -18,35 +20,33 @@ class Renderer:
         score_text_surface = font.render("SCORE", False, GREEN)
         highscore_text_surface = font.render("HIGH-SCORE", False, GREEN)
 
-        if self.game.run:
+        if self.game.is_running():
             self.screen.blit(level_surface, (570, 740, 50, 50))
         else:
             self.screen.blit(game_over_surface, (570, 740, 50, 50))
 
         x = 50
-        for life in range(self.game.lives):
-            self.screen.blit(self.game.player_ship.image, (x, 745))
+        for life in range(self.game.get_lives()):
+            self.screen.blit(self.game.get_player_ship_image(), (x, 745))
             x += 50
 
         self.screen.blit(score_text_surface, (50, 15, 50, 50))
-        formatted_score = str(self.game.score).zfill(5)
+        formatted_score = str(self.game.get_score()).zfill(5)
         score_surface = font.render(formatted_score, False, GREEN)
         self.screen.blit(score_surface, (50, 40, 50, 50))
         self.screen.blit(highscore_text_surface, (550, 15, 50, 50))
-        formatted_highscore = str(self.game.highscore).zfill(5)
+        formatted_highscore = str(get_max_score()).zfill(5)
         highscore_surface = font.render(formatted_highscore, False, GREEN)
         self.screen.blit(highscore_surface, (625, 40, 50, 50))
 
     def draw_game_objects(self):
-        self.screen.blit(self.game.player_ship.image, self.game.player_ship.rect)
-        self.game.player_ship.lasers_group.draw(self.screen)
+        self.game.draw_player_ship_and_lasers(self.screen)
         self.game.draw_obstacles(self.screen)
-        self.game.alien_fleet.draw(self.screen)
-        self.game.alien_fleet.lasers_group.draw(self.screen)
-        self.game.mystery_ship_group.draw(self.screen)
+        self.game.draw_alien_fleet_and_lasers(self.screen)
+        self.game.draw_mystery_ship(self.screen)
 
     def render(self):
-        if self.game.run:
+        if self.game.is_running():
             self.render_game()
         else:
             self.render_menu()

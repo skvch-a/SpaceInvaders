@@ -17,9 +17,9 @@ class EventHandler:
                 pygame.quit()
                 sys.exit()
 
-            if self.game.run:
+            if self.game._run:
                 if event.type == self.shoot_laser_event:
-                    self.game.alien_fleet.shoot()
+                    self.game._alien_fleet.shoot()
                 if event.type == self.mystery_ship_event:
                     self.game.create_mystery_ship()
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
@@ -29,17 +29,17 @@ class EventHandler:
                     if self.menu.play_button_rect.collidepoint(event.pos):
                         self.game.start()
 
-        if self.game.run:
+        if self.game._run:
             self.update_game_objects()
 
     def handle_player_controls(self):
         keys = pygame.key.get_pressed()
         if keys[pygame.K_RIGHT]:
-            self.game.player_ship.move_right()
+            self.game._player_ship.move_right()
         if keys[pygame.K_LEFT]:
-            self.game.player_ship.move_left()
+            self.game._player_ship.move_left()
         if keys[pygame.K_SPACE]:
-            self.game.player_ship.shoot()
+            self.game._player_ship.shoot()
 
     def update_game_objects(self):
         self.handle_player_controls()

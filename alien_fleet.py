@@ -8,8 +8,18 @@ class AlienFleet(pygame.sprite.Group):
     def __init__(self):
         super().__init__()
         self.aliens_direction = 1
-        self.lasers_group = pygame.sprite.Group()
+        self._lasers_group = pygame.sprite.Group()
         self.create_aliens()
+
+    def update_lasers(self):
+        self._lasers_group.update()
+
+    def draw_fleet_and_lasers(self, screen):
+        self.draw(screen)
+        self._lasers_group.draw(screen)
+
+    def get_lasers(self):
+        return self._lasers_group
 
     def create_aliens(self):
         for row in range(5):
@@ -47,4 +57,4 @@ class AlienFleet(pygame.sprite.Group):
     def shoot(self):
         if self.sprites():
             random_alien = choice(self.sprites())
-            self.lasers_group.add(Laser(random_alien.rect.center, -6))
+            self._lasers_group.add(Laser(random_alien.rect.center, -6))
