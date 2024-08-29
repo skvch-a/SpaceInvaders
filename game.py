@@ -11,6 +11,7 @@ from shelter import Shelter
 class Game:
     def __init__(self):
         self._run = False
+        self._FPS = None
         self._level_number = None
         self._level_color = None
         self._player_ship = None
@@ -24,6 +25,7 @@ class Game:
 
     def start(self):
         self._run = True
+        self._FPS = FPS
         self._level_number = 1
         self._level_color = self.get_level_color()
         self._player_ship = PlayerShip(self._level_color)
@@ -41,21 +43,25 @@ class Game:
         self._run = False
         pygame.mixer.music.stop()
 
-    def get_level_number(self):
-        return self._level_number
-
-    def get_level_color(self):
-        return LEVEL_COLORS[(self._level_number - 1) % len(LEVEL_COLORS)]
-
     def next_level(self):
         self._score += 500
         self._level_number += 1
+        self._FPS += 15
         self._level_color = self.get_level_color()
         self._player_ship = PlayerShip(self._level_color)
         self._shelters = self.create_shelters()
         self._alien_fleet = AlienFleet(self._level_color)
         self._mystery_ship_group = pygame.sprite.GroupSingle()
         self._lives = LIVES_COUNT
+
+    def get_fps(self):
+        return self._FPS
+
+    def get_level_number(self):
+        return self._level_number
+
+    def get_level_color(self):
+        return LEVEL_COLORS[(self._level_number - 1) % len(LEVEL_COLORS)]
 
     def is_running(self):
         return self._run

@@ -1,6 +1,6 @@
 import pygame
 
-from constants import TITLE, FPS
+from constants import TITLE
 from event_handler import EventHandler
 from renderer import Renderer
 from game import Game
@@ -20,4 +20,8 @@ if __name__ == '__main__':
         event_handler.handle_events()
         renderer.render()
         pygame.display.update()
+        FPS = 0
+        if game.is_running():
+            FPS = game.get_fps()
         clock.tick(FPS)
+
