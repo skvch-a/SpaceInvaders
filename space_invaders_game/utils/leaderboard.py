@@ -1,12 +1,13 @@
+from .. import *
+
 from pygame.font import Font
 from datetime import datetime
 from json import load, dump
-from constants import *
 
 
 def load_leaderboard():
     try:
-        with open("leaderboard.json", 'r') as file:
+        with open(LEADERBOARD_PATH, 'r') as file:
             return load(file)
     except FileNotFoundError:
         return []
@@ -23,7 +24,7 @@ def update_leaderboard(current_score, current_level):
     leaderboard.sort(key=lambda x: x['score'], reverse=True)
     leaderboard = leaderboard[:3]
 
-    with open("leaderboard.json", 'w') as file:
+    with open(LEADERBOARD_PATH, 'w') as file:
         dump(leaderboard, file, indent=4)
 
 def draw_leaderboard(screen):

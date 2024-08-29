@@ -1,6 +1,7 @@
+from .. import *
+from ..utils.leaderboard import draw_leaderboard
+
 import pygame
-from leaderboard import draw_leaderboard
-from constants import *
 
 
 class Menu:

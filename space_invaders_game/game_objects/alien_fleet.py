@@ -1,9 +1,9 @@
+from .. import *
+from .laser import Laser
+from .alien_ship import AlienShip
+
 from pygame.sprite import Group
 from random import choice
-
-from constants import *
-from laser import Laser
-from alien_ship import AlienShip
 
 class AlienFleet(Group):
     def __init__(self, color):

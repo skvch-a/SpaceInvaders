@@ -55,20 +55,22 @@ PLAYER_SHIP_SPEED = 6
 PLAYER_SHIP_SHOOT_DELAY = 300
 PLAYER_SHIP_SHOT_SPEED = 5
 
-MENU_BACKGROUND_IMAGE_PATH = "Assets/Graphics/UI/Background.png"
-START_BUTTON_IMAGE_PATH = "Assets/Graphics/UI/StartButton.png"
-FONT_PATH = "Assets/Font/monogram.ttf"
-SHOOT_SOUND_PATH = "Assets/Audio/shoot.ogg"
-EXPLOSION_SOUND_PATH = "Assets/Audio/explosion.ogg"
+MENU_BACKGROUND_IMAGE_PATH = "space_invaders_game/assets/graphics/UI/background.png"
+START_BUTTON_IMAGE_PATH = "space_invaders_game/assets/graphics/UI/start_button.png"
+FONT_PATH = "space_invaders_game/assets/font/monogram.ttf"
+SHOOT_SOUND_PATH = "space_invaders_game/assets/audio/shoot.ogg"
+EXPLOSION_SOUND_PATH = "space_invaders_game/assets/audio/explosion.ogg"
 
-GAME_MUSIC_PATH = "Assets/Audio/game_music.mp3"
-MENU_MUSIC_PATH = "Assets/Audio/menu_music.mp3"
+GAME_MUSIC_PATH = "space_invaders_game/assets/audio/game_music.mp3"
+MENU_MUSIC_PATH = "space_invaders_game/assets/audio/menu_music.mp3"
 
-PLAYER_SHIP_IMAGE_PATH = "Assets/Graphics/GameObjects/player_ship.png"
-MYSTERY_SHIP_IMAGE_PATH = "Assets/Graphics/GameObjects/mystery_ship.png"
+PLAYER_SHIP_IMAGE_PATH = "space_invaders_game/assets/graphics/game_objects/player_ship.png"
+MYSTERY_SHIP_IMAGE_PATH = "space_invaders_game/assets/graphics/game_objects/mystery_ship.png"
 
-GAME_OVER_SOUND_PATH = "Assets/Audio/game_over.mp3"
-LEVEL_UP_SOUND_PATH = "Assets/Audio/level_up.mp3"
-GET_DAMAGE_SOUND_PATH = "Assets/Audio/get_damage.mp3"
+GAME_OVER_SOUND_PATH = "space_invaders_game/assets/audio/game_over.mp3"
+LEVEL_UP_SOUND_PATH = "space_invaders_game/assets/audio/level_up.mp3"
+GET_DAMAGE_SOUND_PATH = "space_invaders_game/assets/audio/get_damage.mp3"
+
+LEADERBOARD_PATH = "space_invaders_game/leaderboard.json"
 
 PLAYER_NAME_IN_LEADERBOARD = "You"

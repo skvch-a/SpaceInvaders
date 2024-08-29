@@ -1,6 +1,7 @@
+from .. import *
+from ..utils.leaderboard import get_max_score
+
 import pygame
-from constants import *
-from leaderboard import get_max_score
 
 
 class Renderer:

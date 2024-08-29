@@ -1,6 +1,7 @@
+from .. import OBSTACLE_GRID
+from .block import Block
+
 from pygame.sprite import Group
-from constants import OBSTACLE_GRID
-from block import Block
 
 
 class Shelter:

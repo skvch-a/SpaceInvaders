@@ -1,10 +1,11 @@
 import pygame
 
-from constants import TITLE
-from event_handler import EventHandler
-from renderer import Renderer
-from game import Game
-from menu import Menu
+from . import TITLE
+
+from .game_core.event_handler import EventHandler
+from .game_core.renderer import Renderer
+from .game_core.game import Game
+from .game_core.menu import Menu
 
 if __name__ == '__main__':
     pygame.init()

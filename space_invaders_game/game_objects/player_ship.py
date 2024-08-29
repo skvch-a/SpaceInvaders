@@ -1,7 +1,9 @@
+from .. import *
+from ..utils.image_utils import get_image
+from .laser import Laser
+
 import pygame
-from constants import *
-from image_utils import get_image
-from laser import Laser
+
 
 class PlayerShip(pygame.sprite.Sprite):
     def __init__(self, color):

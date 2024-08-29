@@ -1,13 +1,15 @@
+from .. import *
+from .game_over_screen import GameOverScreen
+from ..utils.leaderboard import update_leaderboard, get_max_score
+
+from ..game_objects.alien_fleet import AlienFleet
+from ..game_objects.player_ship import PlayerShip
+from ..game_objects.mystery_ship import MysteryShip
+from ..game_objects.shelter import Shelter
+
+
 import pygame
 from time import time
-
-from constants import *
-from alien_fleet import AlienFleet
-from game_over_screen import GameOverScreen
-from leaderboard import update_leaderboard, get_max_score
-from player_ship import PlayerShip
-from mystery_ship import MysteryShip
-from shelter import Shelter
 
 
 class Game:
