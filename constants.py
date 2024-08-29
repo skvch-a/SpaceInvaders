@@ -6,6 +6,7 @@ OFFSET = 50
 LIVES_COUNT = 3
 
 START_FPS = 60
+GAME_MUSIC_VOLUME = 0.5
 
 LEADERBOARD_FONT_SIZE = 46
 LEADERBOARD_FONT_COLOR = (255, 255, 255)
@@ -54,7 +55,7 @@ START_BUTTON_IMAGE_PATH = "Assets/Graphics/UI/StartButton.png"
 FONT_PATH = "Assets/Font/monogram.ttf"
 SHOOT_SOUND_PATH = "Assets/Audio/shoot.ogg"
 EXPLOSION_SOUND_PATH = "Assets/Audio/explosion.ogg"
-GAME_MUSIC_PATH = "Assets/Audio/music.ogg"
+GAME_MUSIC_PATH = "Assets/Audio/game_music.mp3"
 PLAYER_SHIP_IMAGE_PATH = "Assets/Graphics/GameObjects/player_ship.png"
 MYSTERY_SHIP_IMAGE_PATH = "Assets/Graphics/GameObjects/mystery_ship.png"
 

@@ -39,6 +39,7 @@ class Game:
         self._highscore = get_max_score()
         self._explosion_sound = pygame.mixer.Sound(EXPLOSION_SOUND_PATH)
         pygame.mixer.music.load(GAME_MUSIC_PATH)
+        pygame.mixer.music.set_volume(GAME_MUSIC_VOLUME)
         pygame.mixer.music.play(-1)
 
     def stop(self):

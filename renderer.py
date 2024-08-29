@@ -35,14 +35,17 @@ class Renderer:
         self._screen.blit(highscore_text_surface, (550, 15, 50, 50))
         self._screen.blit(highscore_surface, (625, 40, 50, 50))
 
+
     def render(self):
         if self._game.is_running():
             self.render_game()
         else:
             self.render_menu()
 
+
     def render_menu(self):
         self._menu.draw(self._screen)
+
 
     def render_game(self):
         self._screen.fill(GREY)
