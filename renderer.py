@@ -1,5 +1,5 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, OFFSET, GAME_INTERFACE_FONT_SIZE, GREY, FONT_PATH
+from constants import *
 from leaderboard import get_max_score
 
 

@@ -24,7 +24,7 @@ class EventHandler:
                 if event.type == self.mystery_ship_event:
                     self._game.launch_mystery_ship()
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                        self._game.stop()
+                    self._game.stop()
             else:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self._menu.play_button_rect.collidepoint(event.pos):

@@ -6,7 +6,7 @@ OFFSET = 50
 LIVES_COUNT = 3
 
 START_FPS = 60
-GAME_MUSIC_VOLUME = 0.5
+GAME_MUSIC_VOLUME = 0.8
 
 LEADERBOARD_FONT_SIZE = 46
 LEADERBOARD_FONT_COLOR = (255, 255, 255)
@@ -58,5 +58,6 @@ EXPLOSION_SOUND_PATH = "Assets/Audio/explosion.ogg"
 GAME_MUSIC_PATH = "Assets/Audio/game_music.mp3"
 PLAYER_SHIP_IMAGE_PATH = "Assets/Graphics/GameObjects/player_ship.png"
 MYSTERY_SHIP_IMAGE_PATH = "Assets/Graphics/GameObjects/mystery_ship.png"
+GAME_OVER_SOUND_PATH = "Assets/Audio/game_over.mp3"
 
 PLAYER_NAME_IN_LEADERBOARD = "You"
