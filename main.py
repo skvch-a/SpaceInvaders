@@ -20,7 +20,7 @@ if __name__ == '__main__':
         event_handler.handle_events()
         renderer.render()
         pygame.display.update()
-        FPS = 1
+        FPS = 30
         if game.is_running():
             FPS = game.get_fps()
         clock.tick(FPS)

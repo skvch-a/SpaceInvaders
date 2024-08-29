@@ -24,10 +24,10 @@ class Game:
         self._score = None
         self._highscore = None
         self._explosion_sound = None
-        self._background_image = None
-        self._background_rect = None
+        self._level_up_sound = None
         self._game_over_time = None
         self._game_over_screen = None
+
 
     def start(self):
         self._run = True
@@ -42,6 +42,7 @@ class Game:
         self._score = 0
         self._highscore = get_max_score()
         self._explosion_sound = pygame.mixer.Sound(EXPLOSION_SOUND_PATH)
+        self._level_up_sound = pygame.mixer.Sound(LEVEL_UP_SOUND_PATH)
         self._game_over_time = None
         self._game_over_screen = None
         pygame.mixer.music.load(GAME_MUSIC_PATH)
@@ -60,7 +61,8 @@ class Game:
         game_over_sound = pygame.mixer.Sound(GAME_OVER_SOUND_PATH)
         game_over_sound.play()
 
-    def next_level(self):
+    def level_up(self):
+        self._level_up_sound.play()
         self._score += 500
         self._level_number += 1
         self._FPS += 15
@@ -111,7 +113,7 @@ class Game:
                 self.stop()
         else:
             if len(self._alien_fleet) == 0:
-                self.next_level()
+                self.level_up()
             else:
                 self._alien_fleet.move()
                 self._alien_fleet.update_lasers()

@@ -12,6 +12,7 @@ LEADERBOARD_FONT_SIZE = 46
 LEADERBOARD_FONT_COLOR = (255, 255, 255)
 LEADERBOARD_START_POS_Y = 550
 
+GAME_OVER_FONT_SIZE = 80
 GAME_INTERFACE_FONT_SIZE = 40
 GREY = (29, 29, 27)
 GREEN = (57, 255, 20)
@@ -59,5 +60,6 @@ GAME_MUSIC_PATH = "Assets/Audio/game_music.mp3"
 PLAYER_SHIP_IMAGE_PATH = "Assets/Graphics/GameObjects/player_ship.png"
 MYSTERY_SHIP_IMAGE_PATH = "Assets/Graphics/GameObjects/mystery_ship.png"
 GAME_OVER_SOUND_PATH = "Assets/Audio/game_over.mp3"
+LEVEL_UP_SOUND_PATH = "Assets/Audio/level_up.mp3"
 
 PLAYER_NAME_IN_LEADERBOARD = "You"
