@@ -11,7 +11,7 @@ class Renderer:
 
     def draw_frame(self):
         pygame.draw.rect(self._screen, self._game.get_level_color(), (10, 10, 780, 780), 2, 0, 60, 60, 60, 60)
-        pygame.draw.line(self._screen, self._game.get_level_color(), (25, 730), (775, 730), 3)
+        pygame.draw.line(self._screen, self._game.get_level_color(), (12, 730), (788, 730), 3)
 
     def draw_text(self):
         font = pygame.font.Font(FONT_PATH, GAME_INTERFACE_FONT_SIZE)

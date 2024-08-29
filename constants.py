@@ -54,7 +54,7 @@ START_BUTTON_IMAGE_PATH = "Assets/Graphics/UI/StartButton.png"
 FONT_PATH = "Assets/Font/monogram.ttf"
 SHOOT_SOUND_PATH = "Assets/Audio/shoot.ogg"
 EXPLOSION_SOUND_PATH = "Assets/Audio/explosion.ogg"
-GAME_MUSIC_PATH = "Assets/Music/music.ogg"
+GAME_MUSIC_PATH = "Assets/Audio/music.ogg"
 PLAYER_SHIP_IMAGE_PATH = "Assets/Graphics/GameObjects/player_ship.png"
 MYSTERY_SHIP_IMAGE_PATH = "Assets/Graphics/GameObjects/mystery_ship.png"
 
