@@ -17,12 +17,16 @@ if __name__ == '__main__':
     renderer = Renderer(game, menu)
     event_handler = EventHandler(game, menu)
 
-    while True:
-        event_handler.handle_events()
-        renderer.render()
-        pygame.display.update()
-        FPS = 30
-        if game.is_running():
-            FPS = game.get_fps()
-        clock.tick(FPS)
+    try:
+        while True:
+            event_handler.handle_events()
+            renderer.render()
+            pygame.display.update()
+            FPS = 30
+            if game.is_running():
+                FPS = game.get_fps()
+            clock.tick(FPS)
+
+    except KeyboardInterrupt:
+        pass
 

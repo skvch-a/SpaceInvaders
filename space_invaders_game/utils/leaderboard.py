@@ -44,7 +44,7 @@ def draw_leaderboard(screen):
         index_text = f"{index + 1:>1}."
         name_text = f"{name:>4}"
         time_text = f"({time})"
-        score_text = f"{score:>6}"
+        score_text = f"{score:>5}"
         level_text = f"(level {level:>2})"
         record_text = f"{index_text} {name_text} {time_text} {score_text} {level_text}"
 
