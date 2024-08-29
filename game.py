@@ -20,7 +20,6 @@ class Game:
         self._shelters = None
         self._alien_fleet = None
         self._mystery_ship_group = None
-        self._lives = None
         self._score = None
         self._highscore = None
         self._explosion_sound = None
@@ -38,7 +37,6 @@ class Game:
         self._shelters = self.create_shelters()
         self._alien_fleet = AlienFleet(self._level_color)
         self._mystery_ship_group = pygame.sprite.GroupSingle()
-        self._lives = LIVES_COUNT
         self._score = 0
         self._highscore = get_max_score()
         self._explosion_sound = pygame.mixer.Sound(EXPLOSION_SOUND_PATH)
@@ -71,7 +69,6 @@ class Game:
         self._shelters = self.create_shelters()
         self._alien_fleet = AlienFleet(self._level_color)
         self._mystery_ship_group = pygame.sprite.GroupSingle()
-        self._lives = LIVES_COUNT
 
     def get_fps(self):
         return self._FPS
@@ -84,9 +81,6 @@ class Game:
 
     def is_running(self):
         return self._run
-
-    def get_lives(self):
-        return self._lives
 
     def get_score(self):
         return self._score
@@ -149,8 +143,8 @@ class Game:
             for laser_sprite in self._alien_fleet.get_lasers():
                 if pygame.sprite.collide_rect(laser_sprite, self._player_ship):
                     laser_sprite.kill()
-                    self._lives -= 1
-                    if self._lives == 0:
+                    self._player_ship.take_damage()
+                    if self._player_ship.is_killed():
                         self.game_over()
 
                 for obstacle in self._shelters:

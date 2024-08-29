@@ -21,7 +21,7 @@ class Renderer:
         self._screen.blit(level_surface, (570, 740, 50, 50))
 
         x = 50
-        for life in range(self._game.get_lives()):
+        for life in range(self._game.get_player_ship().get_lives()):
             self._screen.blit(self._game.get_player_ship().image, (x, 745))
             x += 50
 

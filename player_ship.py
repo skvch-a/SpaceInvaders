@@ -12,9 +12,21 @@ class PlayerShip(pygame.sprite.Sprite):
         self._last_shoot_time = float('-inf')
         self._lasers_group = pygame.sprite.Group()
         self._shoot_sound = pygame.mixer.Sound(SHOOT_SOUND_PATH)
+        self._damage_sound = pygame.mixer.Sound(GET_DAMAGE_SOUND_PATH)
+        self._lives = LIVES_COUNT
+
+    def get_lives(self):
+        return self._lives
 
     def get_lasers(self):
         return self._lasers_group
+
+    def is_killed(self):
+        return self._lives <= 0
+
+    def take_damage(self):
+        self._lives -= 1
+        self._damage_sound.play()
 
     def update_lasers(self):
         self._lasers_group.update()

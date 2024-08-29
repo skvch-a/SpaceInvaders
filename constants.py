@@ -66,5 +66,6 @@ MYSTERY_SHIP_IMAGE_PATH = "Assets/Graphics/GameObjects/mystery_ship.png"
 
 GAME_OVER_SOUND_PATH = "Assets/Audio/game_over.mp3"
 LEVEL_UP_SOUND_PATH = "Assets/Audio/level_up.mp3"
+GET_DAMAGE_SOUND_PATH = "Assets/Audio/get_damage.mp3"
 
 PLAYER_NAME_IN_LEADERBOARD = "You"
