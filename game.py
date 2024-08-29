@@ -22,6 +22,8 @@ class Game:
         self._score = None
         self._highscore = None
         self._explosion_sound = None
+        self._background_image = None
+        self._background_rect = None
 
     def start(self):
         self._run = True
@@ -95,7 +97,7 @@ class Game:
             self._mystery_ship_group.update()
             self.check_for_collisions()
 
-    def create_mystery_ship(self):
+    def launch_mystery_ship(self):
         self._mystery_ship_group.add(MysteryShip(self._level_color))
 
     def check_player_ship_lasers_collisions(self):

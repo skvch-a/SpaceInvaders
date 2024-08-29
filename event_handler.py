@@ -8,7 +8,7 @@ class EventHandler:
         self._menu = menu
 
         self.shoot_laser_event = pygame.USEREVENT
-        pygame.time.set_timer(self.shoot_laser_event, 300)
+        pygame.time.set_timer(self.shoot_laser_event, 900)
         self.mystery_ship_event = pygame.USEREVENT + 1
         pygame.time.set_timer(self.mystery_ship_event, randint(4000, 8000))
 
@@ -22,7 +22,7 @@ class EventHandler:
                 if event.type == self.shoot_laser_event:
                     self._game.alien_fleet_shoot()
                 if event.type == self.mystery_ship_event:
-                    self._game.create_mystery_ship()
+                    self._game.launch_mystery_ship()
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                         self._game.stop()
             else:

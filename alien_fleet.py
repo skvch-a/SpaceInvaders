@@ -45,15 +45,17 @@ class AlienFleet(Group):
         for alien in alien_sprites:
             if alien.rect.right >= SCREEN_WIDTH + OFFSET / 2:
                 self._direction = -1
-                self.move_down(2)
+                self.move_down()
+                break
             elif alien.rect.left <= OFFSET / 2:
                 self._direction = 1
-                self.move_down(2)
+                self.move_down()
+                break
 
-    def move_down(self, distance):
+    def move_down(self):
         if self:
             for alien in self.sprites():
-                alien.rect.y += distance
+                alien.rect.y += 10
 
     def shoot(self):
         if self.sprites():
