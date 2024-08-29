@@ -13,6 +13,9 @@ class EventHandler:
         pygame.time.set_timer(self.mystery_ship_event, randint(4000, 8000))
 
     def handle_events(self):
+        if not self._game.is_running() and not pygame.mixer.music.get_busy():
+            self._menu.start_music()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

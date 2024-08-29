@@ -45,7 +45,7 @@ LEVEL_UP_SCORE = 10
 
 ALIEN_FLEET_ROWS = 5
 ALIEN_FLEET_COLUMNS = 11
-ALIENS_MOVE_DOWN_SPEED = 10
+ALIENS_MOVE_DOWN_SPEED = 15
 ALIENS_LASER_SPEED = -6
 
 PLAYER_SHIP_SPEED = 6
@@ -57,9 +57,13 @@ START_BUTTON_IMAGE_PATH = "Assets/Graphics/UI/StartButton.png"
 FONT_PATH = "Assets/Font/monogram.ttf"
 SHOOT_SOUND_PATH = "Assets/Audio/shoot.ogg"
 EXPLOSION_SOUND_PATH = "Assets/Audio/explosion.ogg"
+
 GAME_MUSIC_PATH = "Assets/Audio/game_music.mp3"
+MENU_MUSIC_PATH = "Assets/Audio/menu_music.mp3"
+
 PLAYER_SHIP_IMAGE_PATH = "Assets/Graphics/GameObjects/player_ship.png"
 MYSTERY_SHIP_IMAGE_PATH = "Assets/Graphics/GameObjects/mystery_ship.png"
+
 GAME_OVER_SOUND_PATH = "Assets/Audio/game_over.mp3"
 LEVEL_UP_SOUND_PATH = "Assets/Audio/level_up.mp3"
 
