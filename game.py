@@ -63,7 +63,7 @@ class Game:
 
     def level_up(self):
         self._level_up_sound.play()
-        self._score += 500
+        self._score += LEVEL_UP_SCORE
         self._level_number += 1
         self._FPS += 15
         self._level_color = self.get_level_color()
@@ -165,8 +165,9 @@ class Game:
                 for obstacle in self._shelters:
                     pygame.sprite.spritecollide(alien, obstacle.blocks_group, True)
 
-                if pygame.sprite.collide_rect(alien, self._player_ship):
+                if pygame.sprite.collide_rect(alien, self._player_ship) or alien.rect.y >= SCREEN_HEIGHT:
                     self.game_over()
+
 
     def create_shelters(self):
         shelter_width = len(OBSTACLE_GRID[0]) * 3
