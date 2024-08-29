@@ -8,7 +8,7 @@ class PlayerShip(pygame.sprite.Sprite):
         super().__init__()
         self._color = color
         self.image = get_image(PLAYER_SHIP_IMAGE_PATH, self._color)
-        self.rect = self.image.get_rect(midbottom=((SCREEN_WIDTH + OFFSET) / 2, SCREEN_HEIGHT))
+        self.rect = self.image.get_rect(midbottom=(SCREEN_WIDTH / 2, GAME_AREA_HEIGHT))
         self._last_shoot_time = float('-inf')
         self._lasers_group = pygame.sprite.Group()
         self._shoot_sound = pygame.mixer.Sound(SHOOT_SOUND_PATH)
@@ -43,7 +43,7 @@ class PlayerShip(pygame.sprite.Sprite):
             self._last_shoot_time = pygame.time.get_ticks()
 
     def move_right(self):
-        self.rect.right = min(self.rect.right + PLAYER_SHIP_SPEED, SCREEN_WIDTH)
+        self.rect.right = min(self.rect.right + PLAYER_SHIP_SPEED, GAME_AREA_WIDTH)
 
     def move_left(self):
         self.rect.left = max(self.rect.left - PLAYER_SHIP_SPEED, OFFSET)

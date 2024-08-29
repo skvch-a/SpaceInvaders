@@ -9,7 +9,7 @@ class Menu:
         self.background_rect = self.background_img.get_rect()
 
         self.play_button_img = pygame.image.load(START_BUTTON_IMAGE_PATH)
-        self.play_button_rect = self.play_button_img.get_rect(center=((SCREEN_WIDTH + OFFSET) / 2, SCREEN_HEIGHT / 2))
+        self.play_button_rect = self.play_button_img.get_rect(center=((GAME_AREA_WIDTH + OFFSET) / 2, GAME_AREA_HEIGHT / 2))
 
     @staticmethod
     def start_music():

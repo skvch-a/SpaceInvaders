@@ -1,8 +1,7 @@
 from pygame.font import Font
 from datetime import datetime
-from constants import SCREEN_WIDTH, OFFSET, FONT_PATH, PLAYER_NAME_IN_LEADERBOARD, LEADERBOARD_FONT_COLOR, \
-    LEADERBOARD_FONT_SIZE, LEADERBOARD_START_POS_Y
 from json import load, dump
+from constants import *
 
 
 def load_leaderboard():
@@ -31,7 +30,7 @@ def draw_leaderboard(screen):
     leaderboard = load_leaderboard()
     font = Font(FONT_PATH, LEADERBOARD_FONT_SIZE)
     title_text = font.render("HIGH SCORES: ", True, LEADERBOARD_FONT_COLOR)
-    screen.blit(title_text, ((SCREEN_WIDTH - title_text.get_width() + OFFSET) / 2, LEADERBOARD_START_POS_Y))
+    screen.blit(title_text, ((SCREEN_WIDTH - title_text.get_width()) / 2, LEADERBOARD_START_POS_Y))
 
     pos_y = LEADERBOARD_START_POS_Y + 50
     for index, entry in enumerate(leaderboard):
@@ -49,5 +48,5 @@ def draw_leaderboard(screen):
         record_text = f"{index_text} {name_text} {time_text} {score_text} {level_text}"
 
         text_surface = font.render(record_text, True, LEADERBOARD_FONT_COLOR)
-        screen.blit(text_surface, ((SCREEN_WIDTH - text_surface.get_width() + OFFSET) / 2, pos_y))
+        screen.blit(text_surface, ((GAME_AREA_WIDTH - text_surface.get_width() + OFFSET) / 2, pos_y))
         pos_y += 40

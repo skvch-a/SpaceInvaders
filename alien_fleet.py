@@ -1,6 +1,7 @@
 from pygame.sprite import Group
-from constants import *
 from random import choice
+
+from constants import *
 from laser import Laser
 from alien_ship import AlienShip
 
@@ -42,7 +43,7 @@ class AlienFleet(Group):
 
         alien_sprites = self.sprites()
         for alien in alien_sprites:
-            if alien.rect.right >= SCREEN_WIDTH + OFFSET / 2:
+            if alien.rect.right >= GAME_AREA_WIDTH + OFFSET / 2:
                 self._direction = -1
                 self.move_down()
                 break

@@ -7,7 +7,7 @@ class Renderer:
     def __init__(self, game, menu):
         self._game = game
         self._menu = menu
-        self._screen = pygame.display.set_mode((SCREEN_WIDTH + OFFSET, SCREEN_HEIGHT + OFFSET * 2))
+        self._screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
     def draw_frame(self):
         pygame.draw.rect(self._screen, self._game.get_level_color(), (10, 10, 780, 780), 2, 0, 60, 60, 60, 60)

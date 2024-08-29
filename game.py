@@ -159,17 +159,17 @@ class Game:
                 for obstacle in self._shelters:
                     pygame.sprite.spritecollide(alien, obstacle.blocks_group, True)
 
-                if pygame.sprite.collide_rect(alien, self._player_ship) or alien.rect.y >= SCREEN_HEIGHT:
+                if pygame.sprite.collide_rect(alien, self._player_ship) or alien.rect.y >= GAME_AREA_HEIGHT:
                     self.game_over()
 
 
     def create_shelters(self):
         shelter_width = len(OBSTACLE_GRID[0]) * 3
-        gap = (SCREEN_WIDTH + OFFSET - (4 * shelter_width)) / 5
+        gap = (GAME_AREA_WIDTH + OFFSET - (4 * shelter_width)) / 5
         shelters = []
         for i in range(4):
             pos_x = (i + 1) * gap + i * shelter_width
-            shelter = Shelter(self._level_color, pos_x, SCREEN_HEIGHT - 100)
+            shelter = Shelter(self._level_color, pos_x, GAME_AREA_HEIGHT - SHELTERS_OFFSET_Y)
             shelters.append(shelter)
         return shelters
 
