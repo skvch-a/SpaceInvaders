@@ -16,10 +16,8 @@ class Renderer:
     def draw_text(self):
         font = pygame.font.Font(FONT_PATH, GAME_INTERFACE_FONT_SIZE)
         color = self._game.get_level_color()
-        level_surface = font.render(f"LEVEL {self._game.get_level_number():02}", False, color)
-        score_text_surface = font.render("SCORE", False, color)
-        highscore_text_surface = font.render("HIGH-SCORE", False, color)
 
+        level_surface = font.render(f"LEVEL {self._game.get_level_number():02}", False, color)
         self._screen.blit(level_surface, (570, 740, 50, 50))
 
         x = 50
@@ -27,13 +25,14 @@ class Renderer:
             self._screen.blit(self._game.get_player_ship().image, (x, 745))
             x += 50
 
+        score_text_surface = font.render("SCORE", False, color)
+        score_surface = font.render(str(self._game.get_score()).zfill(5), False, color)
         self._screen.blit(score_text_surface, (50, 15, 50, 50))
-        formatted_score = str(self._game.get_score()).zfill(5)
-        score_surface = font.render(formatted_score, False, color)
         self._screen.blit(score_surface, (50, 40, 50, 50))
+
+        highscore_text_surface = font.render("HIGH-SCORE", False, color)
+        highscore_surface = font.render(str(get_max_score()).zfill(5), False, color)
         self._screen.blit(highscore_text_surface, (550, 15, 50, 50))
-        formatted_highscore = str(get_max_score()).zfill(5)
-        highscore_surface = font.render(formatted_highscore, False, color)
         self._screen.blit(highscore_surface, (625, 40, 50, 50))
 
     def render(self):
