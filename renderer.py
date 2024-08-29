@@ -16,15 +16,11 @@ class Renderer:
     def draw_text(self):
         font = pygame.font.Font(FONT_PATH, GAME_INTERFACE_FONT_SIZE)
         color = self._game.get_level_color()
-        level_surface = font.render(f"LEVEL {self._game.get_level_number()}", False, color)
-        game_over_surface = font.render("GAME OVER", False, color)
+        level_surface = font.render(f"LEVEL {self._game.get_level_number():02}", False, color)
         score_text_surface = font.render("SCORE", False, color)
         highscore_text_surface = font.render("HIGH-SCORE", False, color)
 
-        if self._game.is_running():
-            self._screen.blit(level_surface, (570, 740, 50, 50))
-        else:
-            self._screen.blit(game_over_surface, (570, 740, 50, 50))
+        self._screen.blit(level_surface, (570, 740, 50, 50))
 
         x = 50
         for life in range(self._game.get_lives()):
