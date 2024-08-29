@@ -1,5 +1,5 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, OFFSET, FONT_SIZE, GREY
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, OFFSET, GAME_INTERFACE_FONT_SIZE, GREY, FONT_PATH
 from leaderboard import get_max_score
 
 
@@ -14,7 +14,7 @@ class Renderer:
         pygame.draw.line(self._screen, self._game.get_level_color(), (25, 730), (775, 730), 3)
 
     def draw_text(self):
-        font = pygame.font.Font("Assets/Font/monogram.ttf", FONT_SIZE)
+        font = pygame.font.Font(FONT_PATH, GAME_INTERFACE_FONT_SIZE)
         color = self._game.get_level_color()
         level_surface = font.render(f"LEVEL {self._game.get_level_number()}", False, color)
         game_over_surface = font.render("GAME OVER", False, color)

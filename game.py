@@ -27,7 +27,7 @@ class Game:
 
     def start(self):
         self._run = True
-        self._FPS = FPS
+        self._FPS = START_FPS
         self._level_number = 1
         self._level_color = self.get_level_color()
         self._player_ship = PlayerShip(self._level_color)
@@ -37,12 +37,13 @@ class Game:
         self._lives = LIVES_COUNT
         self._score = 0
         self._highscore = get_max_score()
-        self._explosion_sound = pygame.mixer.Sound("Assets/Audio/explosion.ogg")
-        pygame.mixer.music.load("Assets/Audio/music.ogg")
+        self._explosion_sound = pygame.mixer.Sound(EXPLOSION_SOUND_PATH)
+        pygame.mixer.music.load(GAME_MUSIC_PATH)
         pygame.mixer.music.play(-1)
 
     def stop(self):
         self._run = False
+        update_leaderboard(self._score, self._level_number)
         pygame.mixer.music.stop()
 
     def next_level(self):
@@ -109,13 +110,11 @@ class Game:
                     self._explosion_sound.play()
                     for alien in aliens_hit:
                         self._score += alien.get_type() * BASIC_ALIEN_SCORE
-                        update_leaderboard(self._score)
                         laser_sprite.kill()
 
                 if pygame.sprite.spritecollide(laser_sprite, self._mystery_ship_group, True):
                     self._score += MYSTERY_SHIP_SCORE
                     self._explosion_sound.play()
-                    update_leaderboard(self._score)
                     laser_sprite.kill()
 
                 for obstacle in self._shelters:

@@ -5,10 +5,10 @@ from constants import *
 
 class Menu:
     def __init__(self):
-        self.background_img = pygame.image.load("Assets/Graphics/UI/Background.png")
+        self.background_img = pygame.image.load(MENU_BACKGROUND_IMAGE_PATH)
         self.background_rect = self.background_img.get_rect()
 
-        self.play_button_img = pygame.image.load("Assets/Graphics/UI/StartButton.png")
+        self.play_button_img = pygame.image.load(START_BUTTON_IMAGE_PATH)
         self.play_button_rect = self.play_button_img.get_rect(center=((SCREEN_WIDTH + OFFSET) / 2, SCREEN_HEIGHT / 2))
 
     def draw(self, screen):

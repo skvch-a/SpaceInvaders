@@ -7,11 +7,11 @@ class PlayerShip(pygame.sprite.Sprite):
     def __init__(self, color):
         super().__init__()
         self._color = color
-        self.image = get_image('Assets/Graphics/GameObjects/player_ship.png', self._color)
+        self.image = get_image(PLAYER_SHIP_IMAGE_PATH, self._color)
         self.rect = self.image.get_rect(midbottom=((SCREEN_WIDTH + OFFSET) / 2, SCREEN_HEIGHT))
         self._last_shoot_time = float('-inf')
         self._lasers_group = pygame.sprite.Group()
-        self._shoot_sound = pygame.mixer.Sound("Assets/Audio/shoot.ogg")
+        self._shoot_sound = pygame.mixer.Sound(SHOOT_SOUND_PATH)
 
     def get_lasers(self):
         return self._lasers_group
