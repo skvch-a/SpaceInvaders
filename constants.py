@@ -9,7 +9,11 @@ FPS = 60
 
 FONT_SIZE = 40
 GREY = (29, 29, 27)
-GREEN = (0, 240, 0)
+GREEN = (57, 255, 20)
+BLUE = (4, 217, 255)
+VIOLET = (188, 19, 254)
+YELLOW = (255, 234, 25)
+LEVEL_COLORS = [BLUE, GREEN, VIOLET, YELLOW]
 
 OBSTACLE_GRID = [
     [0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0],

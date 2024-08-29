@@ -1,11 +1,13 @@
 import pygame
-from constants import SCREEN_WIDTH, SCREEN_HEIGHT, OFFSET
+from constants import SCREEN_WIDTH, SCREEN_HEIGHT, OFFSET, BLUE
+from image_utils import get_image
 from laser import Laser
 
 class PlayerShip(pygame.sprite.Sprite):
-    def __init__(self):
+    def __init__(self, color):
         super().__init__()
-        self.image = pygame.image.load('Assets/Graphics/GameObjects/player_ship.png')
+        self._color = color
+        self.image = get_image('Assets/Graphics/GameObjects/player_ship.png', self._color)
         self.rect = self.image.get_rect(midbottom=((SCREEN_WIDTH + OFFSET) / 2, SCREEN_HEIGHT))
         self._speed = 6
         self._shoot_delay = 300
@@ -27,7 +29,7 @@ class PlayerShip(pygame.sprite.Sprite):
     def shoot(self):
         current_time = pygame.time.get_ticks()
         if current_time - self._last_shoot_time >= self._shoot_delay:
-            self._lasers_group.add(Laser(self.rect.center, self._shoot_speed))
+            self._lasers_group.add(Laser(self.rect.center, self._shoot_speed, self._color))
             self._shoot_sound.play()
             self._last_shoot_time = pygame.time.get_ticks()
 

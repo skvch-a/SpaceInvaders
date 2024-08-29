@@ -1,14 +1,15 @@
 from pygame.sprite import Group
-from constants import SCREEN_WIDTH, OFFSET
+from constants import SCREEN_WIDTH, OFFSET, BLUE
 from random import choice
 from laser import Laser
 from alien_ship import AlienShip
 
 class AlienFleet(Group):
-    def __init__(self):
+    def __init__(self, color):
         super().__init__()
         self._direction = 1
         self._lasers_group = Group()
+        self._color = color
         self.create_aliens()
 
     def get_lasers(self):
@@ -34,7 +35,7 @@ class AlienFleet(Group):
                 else:
                     alien_type = 1
 
-                alien = AlienShip(alien_type, x + OFFSET / 2, y)
+                alien = AlienShip(alien_type, self._color, x + OFFSET / 2, y)
                 self.add(alien)
 
     def move(self):
@@ -57,4 +58,4 @@ class AlienFleet(Group):
     def shoot(self):
         if self.sprites():
             random_alien = choice(self.sprites())
-            self._lasers_group.add(Laser(random_alien.rect.center, -6))
+            self._lasers_group.add(Laser(random_alien.rect.center, -6, self._color))

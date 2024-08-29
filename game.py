@@ -11,14 +11,51 @@ from shelter import Shelter
 class Game:
     def __init__(self):
         self._run = False
+        self._level_number = None
+        self._level_color = None
         self._player_ship = None
-        self._obstacles = None
+        self._shelters = None
         self._alien_fleet = None
         self._mystery_ship_group = None
         self._lives = None
         self._score = None
         self._highscore = None
         self._explosion_sound = None
+
+    def start(self):
+        self._run = True
+        self._level_number = 1
+        self._level_color = self.get_level_color()
+        self._player_ship = PlayerShip(self._level_color)
+        self._shelters = self.create_shelters()
+        self._alien_fleet = AlienFleet(self._level_color)
+        self._mystery_ship_group = pygame.sprite.GroupSingle()
+        self._lives = LIVES_COUNT
+        self._score = 0
+        self._highscore = get_max_score()
+        self._explosion_sound = pygame.mixer.Sound("Assets/Audio/explosion.ogg")
+        pygame.mixer.music.load("Assets/Audio/music.ogg")
+        pygame.mixer.music.play(-1)
+
+    def stop(self):
+        self._run = False
+        pygame.mixer.music.stop()
+
+    def get_level_number(self):
+        return self._level_number
+
+    def get_level_color(self):
+        return LEVEL_COLORS[(self._level_number - 1) % len(LEVEL_COLORS)]
+
+    def next_level(self):
+        self._score += 500
+        self._level_number += 1
+        self._level_color = self.get_level_color()
+        self._player_ship = PlayerShip(self._level_color)
+        self._shelters = self.create_shelters()
+        self._alien_fleet = AlienFleet(self._level_color)
+        self._mystery_ship_group = pygame.sprite.GroupSingle()
+        self._lives = LIVES_COUNT
 
     def is_running(self):
         return self._run
@@ -35,45 +72,25 @@ class Game:
     def alien_fleet_shoot(self):
         self._alien_fleet.shoot()
 
-    def draw_player_ship_and_lasers(self, screen):
+    def draw_game_objects(self, screen):
         self._player_ship.draw_ship_and_lasers(screen)
-
-    def draw_alien_fleet_and_lasers(self, screen):
+        for obstacle in self._shelters:
+            obstacle.blocks_group.draw(screen)
         self._alien_fleet.draw_fleet_and_lasers(screen)
-
-    def draw_mystery_ship(self, screen):
         self._mystery_ship_group.draw(screen)
 
-    def start(self):
-        self._run = True
-        self._player_ship = PlayerShip()
-        self._obstacles = self.create_shelters()
-        self._alien_fleet = AlienFleet()
-        self._mystery_ship_group = pygame.sprite.GroupSingle()
-        self._lives = LIVES_COUNT
-        self._score = 0
-        self._highscore = get_max_score()
-        self._explosion_sound = pygame.mixer.Sound("Assets/Audio/explosion.ogg")
-        pygame.mixer.music.load("Assets/Audio/music.ogg")
-        pygame.mixer.music.play(-1)
-
-    def stop(self):
-        self._run = False
-        pygame.mixer.music.stop()
-
-    def draw_shelters(self, screen):
-        for obstacle in self._obstacles:
-            obstacle.blocks_group.draw(screen)
-
     def update(self):
-        self._alien_fleet.move()
-        self._alien_fleet.update_lasers()
-        self._player_ship.update_lasers()
-        self._mystery_ship_group.update()
-        self.check_for_collisions()
+        if len(self._alien_fleet) == 0:
+            self.next_level()
+        else:
+            self._alien_fleet.move()
+            self._alien_fleet.update_lasers()
+            self._player_ship.update_lasers()
+            self._mystery_ship_group.update()
+            self.check_for_collisions()
 
     def create_mystery_ship(self):
-        self._mystery_ship_group.add(MysteryShip())
+        self._mystery_ship_group.add(MysteryShip(self._level_color))
 
     def check_player_ship_lasers_collisions(self):
         if self._player_ship.get_lasers():
@@ -93,7 +110,7 @@ class Game:
                     update_leaderboard(self._score)
                     laser_sprite.kill()
 
-                for obstacle in self._obstacles:
+                for obstacle in self._shelters:
                     if pygame.sprite.spritecollide(laser_sprite, obstacle.blocks_group, True):
                         laser_sprite.kill()
 
@@ -106,7 +123,7 @@ class Game:
                     if self._lives == 0:
                         self.stop()
 
-                for obstacle in self._obstacles:
+                for obstacle in self._shelters:
                     if pygame.sprite.spritecollide(laser_sprite, obstacle.blocks_group, True):
                         laser_sprite.kill()
 
@@ -115,20 +132,19 @@ class Game:
         self.check_alien_fleet_lasers_collisions()
         if self._alien_fleet:
             for alien in self._alien_fleet:
-                for obstacle in self._obstacles:
+                for obstacle in self._shelters:
                     pygame.sprite.spritecollide(alien, obstacle.blocks_group, True)
 
                 if pygame.sprite.collide_rect(alien, self._player_ship):
                     self.stop()
 
-    @staticmethod
-    def create_shelters():
-        obstacle_width = len(OBSTACLE_GRID[0]) * 3
-        gap = (SCREEN_WIDTH + OFFSET - (4 * obstacle_width)) / 5
-        obstacles = []
+    def create_shelters(self):
+        shelter_width = len(OBSTACLE_GRID[0]) * 3
+        gap = (SCREEN_WIDTH + OFFSET - (4 * shelter_width)) / 5
+        shelters = []
         for i in range(4):
-            pos_x = (i + 1) * gap + i * obstacle_width
-            obstacle = Shelter(pos_x, SCREEN_HEIGHT - 100)
-            obstacles.append(obstacle)
-        return obstacles
+            pos_x = (i + 1) * gap + i * shelter_width
+            shelter = Shelter(self._level_color, pos_x, SCREEN_HEIGHT - 100)
+            shelters.append(shelter)
+        return shelters
 

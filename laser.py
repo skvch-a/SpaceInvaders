@@ -1,12 +1,12 @@
 import pygame
-from constants import SCREEN_HEIGHT, GREEN, LASER_WIDTH, LASER_HEIGHT
+from constants import SCREEN_HEIGHT, LASER_WIDTH, LASER_HEIGHT
 
 
 class Laser(pygame.sprite.Sprite):
-    def __init__(self, position, speed):
+    def __init__(self, position, speed, color):
         super().__init__()
         self.image = pygame.Surface((LASER_WIDTH, LASER_HEIGHT))
-        self.image.fill(GREEN)
+        self.image.fill(color)
         self.rect = self.image.get_rect(center=position)
         self._speed = speed
 
