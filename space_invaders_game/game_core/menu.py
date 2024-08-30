@@ -13,11 +13,11 @@ class Menu:
         self.play_button_rect = self.play_button_img.get_rect(center=((GAME_AREA_WIDTH + OFFSET) / 2, GAME_AREA_HEIGHT / 2))
 
     @staticmethod
-    def start_music():
+    def start_music() -> None:
         pygame.mixer.music.load(MENU_MUSIC_PATH)
         pygame.mixer.music.play(-1)
 
-    def draw(self, screen):
+    def draw(self, screen) -> None:
         screen.blit(self.background_img, self.background_rect)
         screen.blit(self.play_button_img, self.play_button_rect)
         draw_leaderboard(screen)

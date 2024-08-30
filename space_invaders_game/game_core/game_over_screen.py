@@ -10,5 +10,5 @@ class GameOverScreen:
         self.text_surface = self.font.render("GAME OVER!", False, self.color)
         self.text_rect = self.text_surface.get_rect(center=(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
 
-    def draw(self, screen):
+    def draw(self, screen) -> None:
         screen.blit(self.text_surface, self.text_rect)

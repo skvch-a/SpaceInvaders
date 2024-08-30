@@ -12,7 +12,7 @@ class EventHandler:
         self.mystery_ship_event = pygame.USEREVENT + 1
         pygame.time.set_timer(self.mystery_ship_event, randint(4000, 8000))
 
-    def handle_events(self):
+    def handle_events(self) -> None:
         if not self._game.is_running() and not pygame.mixer.music.get_busy():
             self._menu.start_music()
 
@@ -36,7 +36,10 @@ class EventHandler:
         if self._game.is_running():
             self.update_game_objects()
 
-    def handle_player_controls(self):
+    def handle_player_controls(self) -> None:
+        """
+        Отвечает за управление кораблем игрока
+        """
         keys = pygame.key.get_pressed()
         player_ship = self._game.get_player_ship()
         if keys[pygame.K_RIGHT]:
@@ -46,6 +49,9 @@ class EventHandler:
         if keys[pygame.K_SPACE]:
             player_ship.shoot()
 
-    def update_game_objects(self):
+    def update_game_objects(self) -> None:
+        """
+        Обновляет состояние игровых объектов
+        """
         self.handle_player_controls()
         self._game.update()
