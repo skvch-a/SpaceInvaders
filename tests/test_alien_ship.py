@@ -19,7 +19,7 @@ class TestAlienShip(unittest.TestCase):
         alien = AlienShip(1, (0, 255, 0), 50, 50)
         initial_x = alien.rect.x
         alien.update(5)
-        self.assertEqual(alien.rect.x, initial_x + 5)
+        self.assertEqual(alien.rect.x, initial_x + 10)
 
 if __name__ == '__main__':
     unittest.main()

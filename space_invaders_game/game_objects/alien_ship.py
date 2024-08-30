@@ -1,5 +1,8 @@
-import pygame
+from .. import ALIEN_SPEED
 from ..utils.image_utils import get_image
+
+import pygame
+
 
 class AlienShip(pygame.sprite.Sprite):
     def __init__(self, alien_type_number: int, color: tuple[int, int, int], x: int, y: int):
@@ -21,4 +24,4 @@ class AlienShip(pygame.sprite.Sprite):
         """
         Обновляет позицию корабля по оси X в зависимости от direction
         """
-        self.rect.x += direction
+        self.rect.x += direction * ALIEN_SPEED

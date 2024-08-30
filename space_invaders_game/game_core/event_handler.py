@@ -8,7 +8,7 @@ class EventHandler:
         self._menu = menu
 
         self.shoot_laser_event = pygame.USEREVENT
-        pygame.time.set_timer(self.shoot_laser_event, 600)
+        pygame.time.set_timer(self.shoot_laser_event, 700)
         self.mystery_ship_event = pygame.USEREVENT + 1
         pygame.time.set_timer(self.mystery_ship_event, randint(4000, 8000))
 

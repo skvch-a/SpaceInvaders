@@ -67,7 +67,7 @@ class Game:
         self._level_up_sound.play()
         self._score += LEVEL_UP_SCORE
         self._level_number += 1
-        self._FPS += 15
+        self._FPS += 10
         self._level_color = self.get_level_color()
         self._player_ship = PlayerShip(self._level_color)
         self._shelters = self.create_shelters()
