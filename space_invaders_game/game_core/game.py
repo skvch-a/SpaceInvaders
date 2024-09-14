@@ -69,8 +69,6 @@ class Game:
     def resume(self) -> None:
         """Снимает игру с паузы"""
         pygame.mixer.music.unpause()
-        self._alien_fleet.get_lasers().empty()
-        self._mystery_ship_group.empty()
         self._on_pause = False
 
     def is_paused(self) -> bool:

@@ -22,9 +22,9 @@ class EventHandler:
                 sys.exit()
 
             if self._game.is_running():
-                if event.type == self.shoot_laser_event:
+                if event.type == self.shoot_laser_event and not self._game.is_paused():
                     self._game.alien_fleet_shoot()
-                if event.type == self.mystery_ship_event:
+                if event.type == self.mystery_ship_event and not self._game.is_paused():
                     self._game.launch_mystery_ship()
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
                     if self._game.is_paused():
