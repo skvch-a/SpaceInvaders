@@ -51,7 +51,7 @@ class TestAlienFleet(unittest.TestCase):
         new_y_positions = [alien.rect.y for alien in self.fleet.sprites()]
 
         for initial_y, new_y in zip(initial_y_positions, new_y_positions):
-            self.assertEqual(new_y, initial_y + ALIENS_MOVE_DOWN_SPEED)
+            self.assertEqual(new_y, initial_y + 15)
 
 
 if __name__ == '__main__':

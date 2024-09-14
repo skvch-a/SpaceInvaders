@@ -39,6 +39,7 @@ class TestEventHandler(unittest.TestCase):
             pygame.event.Event(self.event_handler.mystery_ship_event)
         ]
         self.mock_game.is_running.return_value = True
+        self.mock_game.is_paused.return_value = False
         self.event_handler.handle_events()
         self.mock_game.alien_fleet_shoot.assert_called_once()
         self.mock_game.launch_mystery_ship.assert_called_once()
@@ -46,9 +47,9 @@ class TestEventHandler(unittest.TestCase):
     @patch('pygame.event.get')
     def test_handle_events_escape_key(self, mock_event_get):
         mock_event_get.return_value = [pygame.event.Event(pygame.KEYDOWN, {'key': pygame.K_ESCAPE})]
-        self.mock_game.is_running.return_value = True
+        self.mock_game.is_paused.return_value = False
         self.event_handler.handle_events()
-        self.mock_game.stop.assert_called_once()
+        self.mock_game.pause.assert_called_once()
 
     @patch('pygame.event.get')
     def test_handle_events_start_game(self, mock_event_get):
