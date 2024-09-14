@@ -1,4 +1,4 @@
-from .. import *
+from ..constants import FONT_PATH, GAME_OVER_FONT_SIZE, SCREEN_WIDTH, SCREEN_HEIGHT
 
 import pygame
 

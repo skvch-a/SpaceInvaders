@@ -1,4 +1,6 @@
-from .. import *
+from ..constants import GAME_AREA_WIDTH, OFFSET, GAME_AREA_HEIGHT, START_BUTTON_IMAGE_PATH, \
+    MENU_BACKGROUND_IMAGE_PATH, MENU_MUSIC_PATH
+
 from ..utils.leaderboard import draw_leaderboard
 
 import pygame

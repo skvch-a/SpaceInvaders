@@ -1,4 +1,5 @@
-from .. import *
+from ..constants import LEADERBOARD_PATH, PLAYER_NAME_IN_LEADERBOARD, FONT_PATH, LEADERBOARD_FONT_SIZE, SCREEN_WIDTH, \
+    LEADERBOARD_FONT_COLOR, LEADERBOARD_START_POS_Y, GAME_AREA_WIDTH, OFFSET
 
 import pygame
 from datetime import datetime

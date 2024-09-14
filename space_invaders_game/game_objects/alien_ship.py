@@ -1,4 +1,4 @@
-from .. import ALIEN_SPEED
+from ..constants import ALIEN_SPEED
 from ..utils.image_utils import get_image
 
 import pygame

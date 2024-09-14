@@ -1,7 +1,6 @@
 import pygame
 
-from . import TITLE
-
+from .constants import TITLE
 from .game_core.event_handler import EventHandler
 from .game_core.renderer import Renderer
 from .game_core.game import Game

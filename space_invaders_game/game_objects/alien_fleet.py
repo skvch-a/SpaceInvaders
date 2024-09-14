@@ -1,4 +1,4 @@
-from .. import *
+from ..constants import ALIEN_FLEET_ROWS, ALIEN_FLEET_COLUMNS, GAME_AREA_WIDTH, OFFSET, ALIENS_LASER_SPEED
 from .laser import Laser
 from .alien_ship import AlienShip
 
@@ -72,7 +72,7 @@ class AlienFleet(pygame.sprite.Group):
         """
         if self:
             for alien in self.sprites():
-                alien.rect.y += ALIENS_MOVE_DOWN_SPEED
+                alien.rect.y += 15
 
     def shoot(self) -> None:
         """

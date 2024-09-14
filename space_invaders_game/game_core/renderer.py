@@ -1,4 +1,4 @@
-from .. import *
+from ..constants import SCREEN_WIDTH, SCREEN_HEIGHT, FONT_PATH, GAME_INTERFACE_FONT_SIZE, GREY
 from ..utils.leaderboard import get_max_score
 
 import pygame

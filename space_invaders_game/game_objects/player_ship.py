@@ -1,4 +1,6 @@
-from .. import *
+from ..constants import LIVES_COUNT, PLAYER_SHIP_IMAGE_PATH, SCREEN_WIDTH, GAME_AREA_HEIGHT, GET_DAMAGE_SOUND_PATH, \
+    PLAYER_SHIP_SPEED, GAME_AREA_WIDTH, OFFSET, PLAYER_SHIP_SHOOT_DELAY, PLAYER_SHIP_SHOT_SPEED, SHOOT_SOUND_PATH
+
 from ..utils.image_utils import get_image
 from .laser import Laser
 

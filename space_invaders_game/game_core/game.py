@@ -1,4 +1,7 @@
-from .. import *
+from ..constants import LEVEL_UP_SCORE, BASIC_ALIEN_SCORE, GAME_MUSIC_PATH, START_FPS, EXPLOSION_SOUND_PATH, \
+    GAME_MUSIC_VOLUME, GAME_OVER_SOUND_PATH, LEVEL_COLORS, LEVEL_UP_SOUND_PATH, MYSTERY_SHIP_SCORE, OBSTACLE_GRID, \
+    GAME_AREA_WIDTH, OFFSET, GAME_AREA_HEIGHT, SHELTERS_OFFSET_Y
+
 from .game_over_screen import GameOverScreen
 from ..utils.leaderboard import update_leaderboard, get_max_score
 

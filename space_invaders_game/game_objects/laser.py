@@ -1,6 +1,6 @@
 import pygame
 
-from .. import GAME_AREA_HEIGHT, LASER_WIDTH, LASER_HEIGHT
+from ..constants import GAME_AREA_HEIGHT, LASER_WIDTH, LASER_HEIGHT
 
 
 class Laser(pygame.sprite.Sprite):

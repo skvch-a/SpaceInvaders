@@ -1,9 +1,8 @@
-import random
-
-import pygame
-
-from .. import OFFSET, MYSTERY_SHIP_IMAGE_PATH, SCREEN_WIDTH, GAME_AREA_WIDTH, MYSTERY_SHIP_SPEED
+from ..constants import OFFSET, MYSTERY_SHIP_IMAGE_PATH, SCREEN_WIDTH, GAME_AREA_WIDTH, MYSTERY_SHIP_SPEED
 from ..utils.image_utils import get_image
+
+import random
+import pygame
 
 
 class MysteryShip(pygame.sprite.Sprite):

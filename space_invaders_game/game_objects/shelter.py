@@ -1,4 +1,4 @@
-from .. import OBSTACLE_GRID
+from ..constants import OBSTACLE_GRID
 from .block import Block
 
 from pygame.sprite import Group
