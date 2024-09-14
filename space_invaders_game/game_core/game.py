@@ -2,9 +2,8 @@ from ..constants import LEVEL_UP_SCORE, BASIC_ALIEN_SCORE, GAME_MUSIC_PATH, STAR
     GAME_MUSIC_VOLUME, GAME_OVER_SOUND_PATH, LEVEL_COLORS, LEVEL_UP_SOUND_PATH, MYSTERY_SHIP_SCORE, OBSTACLE_GRID, \
     GAME_AREA_WIDTH, OFFSET, GAME_AREA_HEIGHT, SHELTERS_OFFSET_Y
 
-from .game_over_screen import GameOverScreen
+from .game_message_screen import GameMessageScreen
 from ..utils.leaderboard import update_leaderboard, get_max_score
-
 from ..game_objects.alien_fleet import AlienFleet
 from ..game_objects.player_ship import PlayerShip
 from ..game_objects.mystery_ship import MysteryShip
@@ -17,6 +16,7 @@ from time import time
 class Game:
     def __init__(self):
         self._run = False
+        self._on_pause = False
         self._FPS = None
         self._level_number = None
         self._level_color = None
@@ -30,10 +30,12 @@ class Game:
         self._level_up_sound = None
         self._game_over_time = None
         self._game_over_screen = None
+        self._pause_screen = None
 
     def start(self) -> None:
         """Запускает игру, инициализируя игровые объекты"""
         self._run = True
+        self._on_pause = False
         self._FPS = START_FPS
         self._level_number = 1
         self._level_color = self.get_level_color()
@@ -47,6 +49,7 @@ class Game:
         self._level_up_sound = pygame.mixer.Sound(LEVEL_UP_SOUND_PATH)
         self._game_over_time = None
         self._game_over_screen = None
+        self._pause_screen = None
         pygame.mixer.music.load(GAME_MUSIC_PATH)
         pygame.mixer.music.set_volume(GAME_MUSIC_VOLUME)
         pygame.mixer.music.play(-1)
@@ -57,11 +60,27 @@ class Game:
         self._run = False
         update_leaderboard(self._score, self._level_number)
 
+    def pause(self) -> None:
+        """Ставит игру на паузу"""
+        pygame.mixer.music.pause()
+        self._pause_screen = GameMessageScreen(self._level_color, "PAUSE")
+        self._on_pause = True
+
+    def resume(self) -> None:
+        """Снимает игру с паузы"""
+        pygame.mixer.music.unpause()
+        self._alien_fleet.get_lasers().empty()
+        self._mystery_ship_group.empty()
+        self._on_pause = False
+
+    def is_paused(self) -> bool:
+        return self._on_pause
+
     def game_over(self) -> None:
-        """Завершает игру и проигрывает звук окончания игры."""
+        """Завершает игру и проигрывает звук окончания игры"""
         pygame.mixer.music.stop()
         self._game_over_time = time()
-        self._game_over_screen = GameOverScreen(self._level_color)
+        self._game_over_screen = GameMessageScreen(self._level_color, "GAME OVER!")
         game_over_sound = pygame.mixer.Sound(GAME_OVER_SOUND_PATH)
         game_over_sound.play()
 
@@ -102,6 +121,8 @@ class Game:
         """Рисует игровые объекты на экране"""
         if self._game_over_screen:
             self._game_over_screen.draw(screen)
+        elif self._on_pause:
+            self._pause_screen.draw(screen)
         else:
             self._player_ship.draw_ship_and_lasers(screen)
             for obstacle in self._shelters:

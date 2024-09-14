@@ -27,13 +27,16 @@ class EventHandler:
                 if event.type == self.mystery_ship_event:
                     self._game.launch_mystery_ship()
                 if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-                    self._game.stop()
+                    if self._game.is_paused():
+                        self._game.resume()
+                    else:
+                        self._game.pause()
             else:
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self._menu.play_button_rect.collidepoint(event.pos):
                         self._game.start()
 
-        if self._game.is_running():
+        if self._game.is_running() and not self._game.is_paused():
             self.update_game_objects()
 
     def handle_player_controls(self) -> None:
